@@ -1,0 +1,41 @@
+<div class="container">
+	<div class="page-header">
+		<center><h1>ABM - PHP - Angular</h1> </center>     
+	</div>
+	<div class="CajaInicio animated bounceInRight">
+		<h1>Listado de personas</h1>
+		<input type="search" ng-model="buscador" placeholder="Buscar Usuario">	
+		<table class='table table-hover table-responsive' id="listaPersonas">
+			<thead>
+				<tr>
+					<th>  Foto       </th>	
+					<th>  Nombre     </th>
+					<th>  Apellido   </th>
+					<th>  Dni        </th>
+					<th>  BORRAR     </th>
+					<th>  MODIFICAR  </th>
+				</tr> 
+			</thead>
+			<tr ng-repeat="persona in ListadoPersonas | filter:buscador as resultado">
+				<td><img ng-repeat="fot in persona.foto" class='fotoGrilla' ng-src="{{fot}}"/></td>
+				<td>{{persona.nombre}}</td>
+				<td>{{persona.apellido}}</td>
+				<td>{{persona.dni}}</td>
+				<td>
+					<button class='btn btn-danger' name='Borrar' ng-click="Borrar(persona)">
+					    <span class='glyphicon glyphicon-remove-circle'></span>Borrar
+					</button>
+				</td>			
+				<td>
+					<button class='btn btn-warning' name='Modificar' ng-click="Modificar(persona)">
+						<span class='glyphicon glyphicon-edit'></span>Modificar
+					</button>
+				</td>
+															
+			</tr>
+		</table>
+		<div ng-if="resultado.length==0">
+			No hay personas con ese critero.
+		</div>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+ <ul class="nav nav-tabs">      
+ 	<a ui-sref="inicio" name="nombre_del_marcador">VOLVER AL INICIO</a> 
+</ul>
+<ul class="nav nav-tabs">
+	<li  class="btn btn-info animated bounceInLeft" >
+     	<a ng-click="IraMenu()">
+ 			<span class="glyphicon glyphicon-list-alt">&nbsp;</span>Inicio
+     	</a>
+    </li>
+    <li class="btn btn-info animated bounceInLeft" >
+		<a ng-Click="IraAlta()">
+     		<span class="glyphicon glyphicon-plus-sign">&nbsp;</span>Alta
+     	</a>
+    </li>
+    <li  class="btn btn-info animated bounceInLeft" >
+		<a ng-Click="IraGrilla()">
+     		<span class="glyphicon glyphicon-th" >&nbsp;</span>Grilla</a>
+	</li>
+	<span id="tituloBarra"  class="animated bounceInRight">{{DatoTest}}ABM - PHP - Angular Versión 1.0.1</span>
+</ul>
+<div  ui-view name="contenido"></div>
+   
