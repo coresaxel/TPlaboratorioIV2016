@@ -1,3 +1,56 @@
+miApp.controller("controllerLogin",function($scope,$state,$auth,services){
+	if($auth.isAuthenticated()){
+		$scope.UserName = $scope.FormIngreso.a_user;
+		$state.go("/Pizzeria");
+	}
+	console.info($auth);
+	$scope.Test = function(rol){
+		switch(rol){
+			case 'Admin':
+				$scope.FormIngreso.a_user="AdminArgento";
+				$scope.FormIngreso.a_Pass="1234";
+
+			break;
+			case 'Empleado':
+				$scope.FormIngreso.a_user="EmpleadoArgento";
+				$scope.FormIngreso.a_Pass="1234";
+			break;
+			case 'Cliente':
+				$scope.FormIngreso.a_user="PepeArgento";
+				$scope.FormIngreso.a_Pass="1234";
+			break;
+		}
+
+	}
+
+	$scope.Login = function(){
+		user = {};
+		user.name = $scope.FormIngreso.a_user;
+		user.pass = $scope.FormIngreso.a_pass;
+		//$auth.login($scope.usuario)
+		services.TraerLogin(user)
+  		.then(function(response) {
+	  		if($auth.isAuthenticated()){
+	  			console.info($scope.FormIngreso.a_user);
+	  			$scope.FormIngreso.UserName = $scope.FormIngreso.a_user;
+				$state.go("Pizzeria");
+			}
+	  	})
+  		.catch(function(response) {
+    		console.info("error",response);
+  		});
+	}
+
+	
+
+	$scope.Logout = function(){
+		$scope.UserName = "";
+		$scope.User = "";
+		$scope.Pass = "";
+	}
+
+
+});
 
 miApp.controller("controlPersonaMenu",function($scope,$state,abmPersonaServicio){
 console.info(abmPersonaServicio);	

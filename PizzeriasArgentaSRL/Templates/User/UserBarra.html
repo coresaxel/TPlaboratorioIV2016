@@ -1,30 +1,32 @@
 <nav class="navbar navbar-default">
   <diV  class="container-fluid">
   	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  		<div id="signin" class="navbar-form navbar-left"> 
+  		<div id="signin" class="navbar-form navbar-left" ng-if="UserName">  
 	  		<div class="input-group">
 	    		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	  			<input id="nameUser" type="text" readonly class="form-control" value="">
+	  			<input id="nameUser" type="text" ng-model="UserName" readonly class="form-control" value="">
 			</div>
-			<button type="submit" onclick="Logiout()" class="btn btn-primary">Logout</button> 
+			<button type="submit" ng-click="Logout()" class="btn btn-primary">Logout</button> 
   		</div>
-  		<div id="butons" class="navbar-form navbar">
+  		<div id="butons" class="navbar-form navbar-nav" ng-if="!UserName">
   			<div class="input-group">
-  				<button type="submit" onclick="Logiout()" class="btn btn-primary">Admin</button> 
-  				<button type="submit" onclick="Logiout()" class="btn btn-primary">Empleado</button> 
-  				<button type="submit" onclick="Logiout()" class="btn btn-primary">Cliente</button> 
+  				<button type="submit" ng-click="Test('Admin')" class="btn btn-primary">Admin</button> 
+  				<button type="submit" ng-click="Test('Empleado')" class="btn btn-primary">Empleado</button> 
+  				<button type="submit" ng-click="Test('Cliente')" class="btn btn-primary">Cliente</button> 
 			</div>
 		</div>
-      	<div id="login" class="navbar-form navbar-right"> 
-	        <div class="input-group">
-	            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	            <input id="email" type="email" class="form-control" value="" placeholder="User">                        
-	        </div>
-	    	<div class="input-group">
-	            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-	            <input id="password" type="password" class="form-control" value="" placeholder="Password">     
-	        </div>
-	        <button type="submit" onclick="Login()" class="btn btn-primary">Login</button>
+		<form id="FormIngreso" class="navbar-form navbar-nav-right" name="FormIngreso">
+	      	<div id="login" ng-if="!UserName"> 
+		        <div class="input-group">
+		            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+		            <input id="user" name="user" type="text" class="form-control" ng-model="FormIngreso.a_user" required="" placeholder="User">                     
+		        </div>
+		    	<div class="input-group">
+		            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+		            <input id="password" name="password" type="password" class="form-control" required="" ng-model="FormIngreso.a_pass" placeholder="Password"> 
+		        </div>
+		        <button type="submit" ng-click="Login()" ng-disabled="FormIngreso.$invalid" class="btn btn-primary">Login</button>
+	        </form>
       </div>
     </div>
   </div> 

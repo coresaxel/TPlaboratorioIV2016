@@ -1,24 +1,33 @@
 var miApp = angular.module("AngularABM",["ui.router","angularFileUpload",'satellizer']);
-var Url = 'http://localhost:8080/Laboratorio-IV-2016/Clase.09/Clase.07/ws1/';
+var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
 
 
 miApp.config(function($stateProvider,$urlRouterProvider,$authProvider){
-$authProvider.loginUrl = 'Clase.06/CLASE5-master/ABM_PERSONA/servidor/jwt/php/auth.php';
-$authProvider.tokenName = 'TokenNameAxelCores';
+$authProvider.loginUrl = Url + 'Login';
+$authProvider.tokenName = 'TokenNamePizzeria';
 $authProvider.tokenPrefix = 'AngularABM';
 $authProvider.authHeader = 'data';
 
 	$stateProvider
-		.state(
-			"inicio",{
-				url: "/inicio",
+	.state(
+			"Pizzeria",{
+				url:"/Pizzeria",
 				templateUrl: "inicio.html",
 				cache: true
+				
+			})
+		.state(
+			"Login",{
+				cache: true,
+				templateUrl: "./Templates/User/UserBarra.html",
+				controller: "controllerLogin"
 			})
 		.state(
 			"Test",{
 				url:"/Test",
-				templateUrl:"./Templates/User/UserBarra.html"
+				templateUrl:"./Templates/User/UserBarra.html",
+				controller: "controllerLogin",
+				cache: true
 
 			})
 			.state(
@@ -70,7 +79,7 @@ $authProvider.authHeader = 'data';
 					}
 				}});
 
-		$urlRouterProvider.otherwise("/inicio");
+		$urlRouterProvider.otherwise("Pizzeria");
 
 });
 

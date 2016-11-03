@@ -1,5 +1,5 @@
-miApp.service('abmPersonaServicio', function ($http) {
-  var Url = 'http://localhost:8080/Laboratorio-IV-2016/Clase.09/Clase.07/ws1/';
+miApp.service('services', function ($http,$auth) {
+  var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
 
   this.TraerTodos = TraerTodos;
   function TraerTodos(){
@@ -9,6 +9,15 @@ miApp.service('abmPersonaServicio', function ($http) {
     })
   };
    
+  this.TraerLogin = TraerLogin;
+  function TraerLogin(user){
+    return $http.get(Url + 'Login/' + JSON.stringify(user))
+      .then(function(respuesta) { 
+      console.info("suerp", respuesta);    
+      
+       return respuesta.data;
+    })
+  };
 
    this.InsertarObjeto = InsertarObjeto;
    function InsertarObjeto(persona){
