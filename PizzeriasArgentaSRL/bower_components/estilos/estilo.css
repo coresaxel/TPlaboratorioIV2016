@@ -186,7 +186,7 @@ left:0px;
 #FormIngreso {
 
   background:#f0f0f0;
-  padding:6% 4%;
+  white-space: nowrap;
 }
 
 input[type="text"],input[type="file"],,input[type="file"]{
