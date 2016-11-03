@@ -4,7 +4,7 @@ input.ng-invalid {
     background-color:red;
 }
 input.ng-valid {
-    background-color:yellow;
+    background-color:green;
 }
 
 
@@ -186,7 +186,7 @@ left:0px;
 #FormIngreso {
 
   background:#f0f0f0;
-  white-space: nowrap;
+  margin:0;
 }
 
 input[type="text"],input[type="file"],,input[type="file"]{

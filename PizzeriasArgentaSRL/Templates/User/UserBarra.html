@@ -1,7 +1,6 @@
 <nav class="navbar navbar-light bg-faded">
-  <diV  class="container-fluid">
   	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  		<div id="signin" class="navbar-form navbar-left" ng-if="UserName">  
+  		<div id="signin" class="navbar-form navbar" ng-if="UserName">  
 	  		<div class="input-group">
 	    		<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	  			<input id="nameUser" type="text" ng-model="UserName" readonly class="form-control" value="">
@@ -15,7 +14,7 @@
   				<button type="submit" ng-click="Test('Cliente')" class="btn btn-primary">Cliente</button> 
 			</div>
 		</div>
-		</nav>
+		
 		<form id="FormIngreso" name="FormIngreso">
 	      	<div id="login" class="navbar-form navbar-nav-right" ng-if="!UserName"> 
 		        <div class="input-group">
@@ -30,4 +29,4 @@
 	        </form>
       </div>
     </div>
-  </div> 
+</nav>
