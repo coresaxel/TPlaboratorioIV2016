@@ -32,63 +32,7 @@ $authProvider.authHeader = 'data';
 						templateUrl: "./Templates/User/presentacion.html"
 					}
 				}
-			})
-		.state(
-			"Test",{
-				url:"/Test",
-				templateUrl:"./Templates/User/UserBarra.html",
-				controller: "controllerLogin",
-				cache: true
-
-			})
-			.state(
-			"persona",{
-				url:"/persona",
-				abstract:true,
-				templateUrl:"./AbmPersona/abstractaPersona.html",
-				controller:"controlPersonaMenu"
-
-			})
-			.state(
-			"persona.menu",{
-				url:"/menu",
-				cache: true,
-				views: {
-					"contenido":{
-					templateUrl:"./AbmPersona/personaMenu.html",
-					controller:"controlPersonaMenu"
-					}
-				}
-			})	.state(
-			"persona.Alta",{
-				url:"/alta",
-				cache: true,
-				views: {
-					"contenido":{
-					templateUrl:"./AbmPersona/personaAlta.html",
-					controller:"controlPersonaAlta"
-						}
-				}
-			}).state(
-			"persona.Grilla",{
-				url:"/grilla",
-				cache: true,
-				views: {
-					"contenido":{
-					templateUrl:"./AbmPersona/personaGrilla.html",
-					controller:"controlPersonaGrilla"
-						}
-				}
-			}).state(
-			'persona.modificacion',{
-				url: '/modificacion/{id}?:nombre:apellido:dni:foto',
-				cache: true,
-				views: {
-					"contenido":{
-						templateUrl: './AbmPersona/personaModificar.html',
-						controller: 'controlModificacion'
-					}
-				}});
+			});
 
 		$urlRouterProvider.otherwise("Pizzeria/");
 
