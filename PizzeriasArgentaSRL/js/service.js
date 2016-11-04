@@ -11,10 +11,8 @@ miApp.service('services', function ($http,$auth) {
    
   this.TraerLogin = TraerLogin;
   function TraerLogin(user){
-    return $http.get(Url + 'Login/' + JSON.stringify(user))
-      .then(function(respuesta) { 
-      console.info("suerp", respuesta);    
-      
+    return $auth.login(user)
+      .then(function(respuesta) {      
        return respuesta.data;
     })
   };

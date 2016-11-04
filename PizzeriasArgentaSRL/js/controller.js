@@ -1,23 +1,22 @@
 miApp.controller("controllerLogin",function($scope,$state,$auth,services){
 	if($auth.isAuthenticated()){
-		$scope.UserName = $scope.FormIngreso.a_user;
-		$state.go("/Pizzeria");
+		$scope.UserName = ($auth.getPayload()).usuario[0].nombre_usuario;
 	}
-	console.info($auth);
+	
 	$scope.Test = function(rol){
 		switch(rol){
 			case 'Admin':
 				$scope.FormIngreso.a_user="AdminArgento";
-				$scope.FormIngreso.a_Pass="1234";
+				$scope.FormIngreso.a_pass="1234";
 
 			break;
 			case 'Empleado':
 				$scope.FormIngreso.a_user="EmpleadoArgento";
-				$scope.FormIngreso.a_Pass="1234";
+				$scope.FormIngreso.a_pass="1234";
 			break;
 			case 'Cliente':
 				$scope.FormIngreso.a_user="PepeArgento";
-				$scope.FormIngreso.a_Pass="1234";
+				$scope.FormIngreso.a_pass="1234";
 			break;
 		}
 
@@ -27,11 +26,10 @@ miApp.controller("controllerLogin",function($scope,$state,$auth,services){
 		user = {};
 		user.name = $scope.FormIngreso.a_user;
 		user.pass = $scope.FormIngreso.a_pass;
-		//$auth.login($scope.usuario)
+		
 		services.TraerLogin(user)
   		.then(function(response) {
 	  		if($auth.isAuthenticated()){
-	  			console.info($scope.FormIngreso.a_user);
 	  			$scope.FormIngreso.UserName = $scope.FormIngreso.a_user;
 				$state.go("Pizzeria");
 			}
@@ -45,8 +43,7 @@ miApp.controller("controllerLogin",function($scope,$state,$auth,services){
 
 	$scope.Logout = function(){
 		$scope.UserName = "";
-		$scope.User = "";
-		$scope.Pass = "";
+		$auth.logout();
 	}
 
 

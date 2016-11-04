@@ -1,5 +1,5 @@
 <?php
-use \Firebase\JWT\JWT;
+require_once __DIR__ . '\AccesoDatos.php';
 class Autenticador{
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS
@@ -42,24 +42,7 @@ class Autenticador{
 	
 //--------------------------------------------------------------------------------//
 	public static function Login($usuario){
-		include_once ('jwt/vendor/autoload.php');
-		$objUser = Autenticador::Validar($usuario->name,$usuario->pass);
-		if(COUNT($objUser) != 0)
-		{
-			$ClaveDeEncriptacion="estaeslaclave";
-			//$key = "1234";
-			$token["usuario"]=$objUser;
-			$token["perfil"]="admin";
-			$token["iat"]=time();//momento de creacion
-			$token["exp"]=time() + 60000;
-			$jwt = JWT::encode($token, $ClaveDeEncriptacion);
-		}
-		else
-		{
-			$jwt = false;
-		}
-		$ArrayConToken["TokenNamePizzeria"]=$jwt;
-		return json_encode($ArrayConToken);
+		return Autenticador::Validar($usuario->name,$usuario->pass);
 	}
 
 	private static function Validar($user_name,$user_pass){

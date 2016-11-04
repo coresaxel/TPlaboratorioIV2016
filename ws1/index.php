@@ -2,7 +2,6 @@
 require_once('Clases/AccesoDatos.php');
 require_once('Clases/Personas.php');
 require 'vendor/autoload.php';
-require_once('jwt/php/Autenticar.php');
 $app = new Slim\App();
 
 
@@ -10,11 +9,6 @@ $app = new Slim\App();
 $app->get('/', function ($request, $response, $args) {
     $response->write("Welcome to Slim!");
     return $response;
-});
-
-$app->get('/Login/{objeto}', function ($request, $response, $args) {
-    $usuario=json_decode($args['objeto']);
-    return $response->write(Autenticador::Login($usuario));
 });
 
 $app->get('/personas[/]', function ($request, $response, $args) {

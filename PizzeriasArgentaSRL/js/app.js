@@ -3,7 +3,7 @@ var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
 
 
 miApp.config(function($stateProvider,$urlRouterProvider,$authProvider){
-$authProvider.loginUrl = Url + 'Login';
+$authProvider.loginUrl = Url + 'jwt/php/auth.php';
 $authProvider.tokenName = 'TokenNamePizzeria';
 $authProvider.tokenPrefix = 'AngularABM';
 $authProvider.authHeader = 'data';
