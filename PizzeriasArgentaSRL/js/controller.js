@@ -6,8 +6,8 @@ miApp.controller("controllerLogin",function($scope,$state,$auth,services){
 	$scope.Test = function(rol){
 		switch(rol){
 			case 'Admin':
-				$scope.FormIngreso.a_user="AdminArgento";
-				$scope.FormIngreso.a_pass="1234";
+				$scope.FormIngreso.a_user="AXELCORES";
+				$scope.FormIngreso.a_pass="A1";
 
 			break;
 			case 'Empleado':
@@ -31,7 +31,8 @@ miApp.controller("controllerLogin",function($scope,$state,$auth,services){
   		.then(function(response) {
 	  		if($auth.isAuthenticated()){
 	  			$scope.FormIngreso.UserName = $scope.FormIngreso.a_user;
-				$state.go("Pizzeria");
+				$state.reload()
+				//$state.go("Pizzeria.Principal");
 			}
 	  	})
   		.catch(function(response) {

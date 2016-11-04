@@ -12,15 +12,26 @@ $authProvider.authHeader = 'data';
 	.state(
 			"Pizzeria",{
 				url:"/Pizzeria",
-				templateUrl: "inicio.html",
+				abstract: true,
+				templateUrl: "./Templates/Abstractas/pep.html",
 				cache: true
-				
 			})
 		.state(
-			"Login",{
+			"Pizzeria.Principal",{
 				cache: true,
-				templateUrl: "./Templates/User/UserBarra.html",
-				controller: "controllerLogin"
+				url:"/",
+				views:
+				{
+					"contenido":
+					{
+						templateUrl: "./Templates/User/UserBarra.html",
+						controller: "controllerLogin"
+					},
+					"contenidoBody":
+					{
+						templateUrl: "./Templates/User/presentacion.html"
+					}
+				}
 			})
 		.state(
 			"Test",{
@@ -79,7 +90,7 @@ $authProvider.authHeader = 'data';
 					}
 				}});
 
-		$urlRouterProvider.otherwise("Pizzeria");
+		$urlRouterProvider.otherwise("Pizzeria/");
 
 });
 
