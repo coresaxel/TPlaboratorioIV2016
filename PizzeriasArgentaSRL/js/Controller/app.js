@@ -78,6 +78,45 @@ $authProvider.authHeader = 'data';
 						controller: "controllerUserGrilla"
 					}
 				}
+			})
+			.state(
+			"Abm.Local",{
+				cache: true,
+				url:"/Local",
+				params: {
+					param1: null
+				},
+				views:
+				{
+					// "contenido":
+					// {
+					// 	templateUrl: "./Templates/User/UserBarra.html",
+					// 	controller: "controllerLogin"
+					// },
+					"contenidoBody":
+					{
+						templateUrl: "./Templates/Local/AltaLocal.html",
+						controller: "controllerLocal"
+					}
+				}
+			})
+			.state(
+			"Abm.LocalGrilla",{
+				cache: true,
+				url:"/Locales",
+				views:
+				{
+					// "contenido":
+					// {
+					// 	templateUrl: "./Templates/User/UserBarra.html",
+					// 	controller: "controllerLogin"
+					// },
+					"contenidoBody":
+					{
+						templateUrl: "./Templates/Grilla/Grilla.html",
+						controller: "controllerLocalesGrilla"
+					}
+				}
 			});
 
 

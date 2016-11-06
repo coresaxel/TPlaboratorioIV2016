@@ -3,36 +3,36 @@ miApp.factory('fsUser', function (sUser) {
     var objeto = {};
     objeto.nombre = "Factory de Banderas";
     objeto.TraerTodos = TraerTodos;
-    objeto.TraerUnUser = TraerUnUser;
+    objeto.TraerUnObj = TraerUnObj;
     objeto.TraerLogin = TraerLogin;
-    objeto.InsertarUser = InsertarUser;
-    objeto.ModificarUser = ModificarUser;
-    objeto.EliminarUser = EliminarUser;
+    objeto.InsertarObj = InsertarObj;
+    objeto.ModificarObj = ModificarObj;
+    objeto.EliminarObj = EliminarObj;
     
     return objeto;
 
-    function TraerTodos(){
-      return sUser.TraerTodos();
+    function TraerTodos(obj){
+      return sUser.TraerTodos(obj);
     }
 
-    function TraerUnUser(id){
-      return sUser.TraerUnUser(id);
+    function TraerUnObj(obj,id){
+      return sUser.TraerUnObj(obj,id);
     }
 
-    function TraerLogin(pais){
-      return sUser.TraerLogin(pais);
+    function TraerLogin(user){
+      return sUser.TraerLogin(user);
     };
 
-    function InsertarUser(user){
-      return sUser.InsertarUser(user);
+    function InsertarObj(obj,user){
+      return sUser.InsertarObj(obj,user);
     };
 
-    function ModificarUser(user){
-      return sUser.ModificarUser(user);
+    function ModificarObj(obj,user){
+      return sUser.ModificarObj(obj,user);
     };
     
-    function EliminarUser(id){
-      return sUser.EliminarUser(id);
+    function EliminarObj(obj,id){
+      return sUser.EliminarObj(obj,id);
     };
 
 

@@ -15,30 +15,8 @@ class User
 	public $latitud_persona;
 	public $longitud_persona;
 	public $foto_persona;
-
-//--------------------------------------------------------------------------------//
-//--CONSTRUCTOR
-	public function __construct($dni=NULL)
-	{
-		if($dni != NULL){
-			$obj = Persona::TraerUnaPersona($dni);
-			
-			$this->apellido = $obj->apellido;
-			$this->nombre = $obj->nombre;
-			$this->dni = $dni;
-			$this->foto = $obj->foto;
-		}
-	}
-
-//--------------------------------------------------------------------------------//
-//--TOSTRING	
-  	public function ToString()
-	{
-	  	return $this->apellido."-".$this->nombre."-".$this->dni."-".$this->foto;
-	}
 //--------------------------------------------------------------------------------//
 
-//--------------------------------------------------------------------------------//
 //--METODO DE CLASE
 	public static function TraerUnaPersona($idParametro) 
 	{	

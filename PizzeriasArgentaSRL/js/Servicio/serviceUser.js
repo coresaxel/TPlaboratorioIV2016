@@ -2,16 +2,16 @@ miApp.service('sUser', function ($http, $auth) {
   var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
 
   this.TraerTodos = TraerTodos;
-  function TraerTodos() {
-    return $http.get(Url + 'User')
+  function TraerTodos(obj) {
+    return $http.get(Url + obj)
       .then(function (respuesta) {
         return respuesta.data;
       })
   };
 
-  this.TraerUnUser = TraerUnUser;
-  function TraerUnUser(id) {
-    return $http.get(Url + 'User/' + JSON.stringify(id))
+  this.TraerUnObj = TraerUnObj;
+  function TraerUnObj(obj,id) {
+    return $http.get(Url + obj + '/' + JSON.stringify(id))
       .then(function (respuesta) {
         return respuesta.data;
       })
@@ -25,9 +25,9 @@ miApp.service('sUser', function ($http, $auth) {
       })
   };
 
-  this.InsertarUser = InsertarUser;
-  function InsertarUser(persona) {
-    return $http.post(Url + 'User/' + JSON.stringify(persona))
+  this.InsertarObj = InsertarObj;
+  function InsertarObj(obj,persona) {
+    return $http.post(Url + obj + '/' + JSON.stringify(persona))
       .then(function (respuesta) {
         return respuesta.data;
       }, function errorCallback(response) {
@@ -35,18 +35,17 @@ miApp.service('sUser', function ($http, $auth) {
       });
   };
 
-  this.EliminarUser = EliminarUser;
-  function EliminarUser(id) {
-    return $http.delete(Url + "User/" + id)
+  this.EliminarObj = EliminarObj;
+  function EliminarObj(obj,id) {
+    return $http.delete(Url + obj + '/' + id)
       .then(function (respuesta) {
-        return TraerTodos();
+        return TraerTodos(obj);
       });
   };
 
-  this.ModificarUser = ModificarUser;
-  function ModificarUser(user) {
-    console.info(user);
-    return $http.put(Url + 'User/' + JSON.stringify(user))
+  this.ModificarObj = ModificarObj;
+  function ModificarObj(obj,user) {
+    return $http.put(Url + obj + '/' + JSON.stringify(user))
       .then(function (respuesta) {
         return respuesta.data;
       }, function errorCallback(response) {
