@@ -117,6 +117,45 @@ $authProvider.authHeader = 'data';
 						controller: "controllerLocalesGrilla"
 					}
 				}
+			})
+						.state(
+			"Abm.Pizza",{
+				cache: true,
+				url:"/Pizza",
+				params: {
+					param1: null
+				},
+				views:
+				{
+					// "contenido":
+					// {
+					// 	templateUrl: "./Templates/User/UserBarra.html",
+					// 	controller: "controllerLogin"
+					// },
+					"contenidoBody":
+					{
+						templateUrl: "./Templates/Pizza/AltaPizza.html",
+						controller: "controllerPizza"
+					}
+				}
+			})
+			.state(
+			"Abm.PizzaGrilla",{
+				cache: true,
+				url:"/Pizzas",
+				views:
+				{
+					// "contenido":
+					// {
+					// 	templateUrl: "./Templates/User/UserBarra.html",
+					// 	controller: "controllerLogin"
+					// },
+					"contenidoBody":
+					{
+						templateUrl: "./Templates/Grilla/Grilla.html",
+						controller: "controllerPizzas"
+					}
+				}
 			});
 
 

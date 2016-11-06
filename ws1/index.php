@@ -2,6 +2,7 @@
 require_once('Clases/AccesoDatos.php');
 require_once('Clases/User.php');
 require_once('Clases/Local.php');
+require_once('Clases/Pizza.php');
 require 'vendor/autoload.php';
 $configuration = [
     'settings' => [
@@ -144,7 +145,7 @@ $app->put('/Local/{objeto}', function ($request, $response, $args) {
             unlink($rutaVieja);
             $arrayFoto[]= $Url.$rutaNueva;
         } 
-        $persona->foto_persona=json_encode($arrayFoto); 
+        $persona->foto_local=json_encode($arrayFoto); 
     }
     return $response->write(Local::ModificarLocal($persona));
 
@@ -156,67 +157,67 @@ $app->delete('/Local/{id}', function ($request, $response, $args) {
 });
 //***********************************LOCALES********************************//
 
-//***********************************LOCALES********************************//
-$app->get('/Local', function ($request, $response, $args) {
-    $datos=Local::TraerTodasLosLocal();
+//***********************************PIZZAS********************************//
+$app->get('/Pizza', function ($request, $response, $args) {
+    $datos=Pizza::TraerTodasLasPizzas();
     for ($i = 0; $i < count($datos); $i++ ){
-        $datos[$i]->foto_local=json_decode($datos[$i]->foto_local);
+        $datos[$i]->foto_pizza=json_decode($datos[$i]->foto_pizza);
     }
     return $response->write(json_encode($datos));
 });
 
-$app->get('/Local/{objeto}', function ($request, $response, $args) {
+$app->get('/Pizza/{objeto}', function ($request, $response, $args) {
     $id=json_decode($args['objeto']);
-    $datos=Local::TraerUnLocal($id);
-    $datos->foto_local=json_decode($datos->foto_local);
+    $datos=Pizza::TraerUnaPizza($id);
+    $datos->foto_pizza=json_decode($datos->foto_pizza);
     return $response->write(json_encode($datos));
 });
 
 /* POST: Para crear recursos */
-$app->post('/Local/{objeto}', function ($request, $response, $args) {
+$app->post('/Pizza/{objeto}', function ($request, $response, $args) {
     $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     
     $persona=json_decode($args['objeto']);
-    $persona->foto_local=explode(';',$persona->foto_local);
+    $persona->foto_pizza=explode(';',$persona->foto_pizza);
     $arrayFoto = array();
-    if(count($persona->foto_local) > 0){
-        for ($i = 0; $i < count($persona->foto_local); $i++ ){
-            $rutaVieja="fotos/".$persona->foto_local[$i];
-            $rutaNueva=$persona->nombre_local. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
+    if(count($persona->foto_pizza) > 0){
+        for ($i = 0; $i < count($persona->foto_pizza); $i++ ){
+            $rutaVieja="fotos/".$persona->foto_pizza[$i];
+            $rutaNueva=$persona->descripcion_pizza. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
             $arrayFoto[]= $Url.$rutaNueva;
         } 
-        $persona->foto_local=json_encode($arrayFoto); 
+        $persona->foto_pizza=json_encode($arrayFoto); 
     }
-    return $response->write(Local::InsertarLocal($persona)); 
+    return $response->write(Pizza::InsertarPizza($persona)); 
 });
 
 // /* PUT: Para editar recursos */
-$app->put('/Local/{objeto}', function ($request, $response, $args) {
+$app->put('/Pizza/{objeto}', function ($request, $response, $args) {
     $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     $persona=json_decode($args['objeto']);
-    $persona->foto_local=explode(';',$persona->foto_local);
+    $persona->foto_pizza=explode(';',$persona->foto_pizza);
     $arrayFoto = array();
-    if(count($persona->foto_local) > 0){
-        for ($i = 0; $i < count($persona->foto_local); $i++ ){
-            $rutaVieja="fotos/".$persona->foto_local[$i];
-            $rutaNueva=$persona->nombre_local. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
+    if(count($persona->foto_pizza) > 0){
+        for ($i = 0; $i < count($persona->foto_pizza); $i++ ){
+            $rutaVieja="fotos/".$persona->foto_pizza[$i];
+            $rutaNueva=$persona->descripcion_pizza. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
             $arrayFoto[]= $Url.$rutaNueva;
         } 
-        $persona->foto_persona=json_encode($arrayFoto); 
+        $persona->foto_pizza=json_encode($arrayFoto); 
     }
-    return $response->write(Local::ModificarLocal($persona));
+    return $response->write(Pizza::ModificarPizza($persona));
 
 });
 
 // /* DELETE: Para eliminar recursos */
-$app->delete('/Local/{id}', function ($request, $response, $args) {
-    return $response->write(Local::BorrarLocal($args['id']));
+$app->delete('/Pizza/{id}', function ($request, $response, $args) {
+    return $response->write(Pizza::BorrarPizza($args['id']));
 });
-//***********************************LOCALES********************************//
+//***********************************PIZZAS********************************//
 
 
 

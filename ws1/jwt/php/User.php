@@ -47,7 +47,7 @@ class Autenticador{
 
 	private static function Validar($user_name,$user_pass){
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario, u.nombre_usuario, u.pass_usuario, r.descripcion_rol from usuario as u join rol r on r.id_rol = u.id_rol where u.nombre_usuario = :p_nombre AND u.pass_usuario = :p_pass");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario, u.nombre_usuario, u.pass_usuario, r.descripcion_rol from usuario as u join rol r on r.id_rol = u.id_rol where u.nombre_usuario = :p_nombre AND u.pass_usuario = :p_pass AND u.estado_usuario = 1");
 		$consulta->bindValue(':p_nombre',$user_name, PDO::PARAM_STR);
 		$consulta->bindValue(':p_pass',$user_pass, PDO::PARAM_STR);
 		$consulta->execute();			
