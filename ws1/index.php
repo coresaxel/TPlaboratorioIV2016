@@ -3,7 +3,9 @@ require_once('Clases/AccesoDatos.php');
 require_once('Clases/User.php');
 require_once('Clases/Local.php');
 require_once('Clases/Pizza.php');
+require_once('Clases/Promocion.php');
 require 'vendor/autoload.php';
+
 $configuration = [
     'settings' => [
         'displayErrorDetails' => true,
@@ -219,7 +221,21 @@ $app->delete('/Pizza/{id}', function ($request, $response, $args) {
 });
 //***********************************PIZZAS********************************//
 
+//***********************************PROMOCION********************************//
+$app->get('/Promocion', function ($request, $response, $args) {
+    return $response->write(json_encode(Promocion::TraerTodasLasPromociones()));
+});
 
+/* POST: Para crear recursos */
+$app->post('/Promocion/{objeto}', function ($request, $response, $args) {
+    return $response->write(Promocion::InsertarPromocion(json_decode($args['objeto']))); 
+});
+
+// /* DELETE: Para eliminar recursos */
+$app->delete('/Promocion/{id}', function ($request, $response, $args) {
+    return $response->write(Promocion::BorrarPromocion($args['id']));
+});
+//***********************************PROMOCION********************************//
 
 /* Step 4: Run the Slim application*/
 $app->run();

@@ -4,37 +4,39 @@ class Promocion
 {
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS
-	public $id_pizza;
+	public $id_promo;
+	public $precio_promo;
+ 	public $id_pizza;
 	public $descripcion_pizza;
- 	public $precio_pizza;
-  	public $foto_pizza;
+  	public $id_local;
+	public $nombre_local;
 //--------------------------------------------------------------------------------//
 //--METODO DE CLASE
-	public static function TraerTodasLasPizzas()
+	public static function TraerTodasLasPromociones()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-	    $consulta =$objetoAccesoDato->RetornarConsulta("select id_pizza, descripcion_pizza,precio_pizza,foto_pizza FROM pizza");
+	    $consulta =$objetoAccesoDato->RetornarConsulta("select pr.id_promo, pr.precio_promo,  pi.id_pizza, pi.descripcion_pizza, l.id_local, l.nombre_local FROM promocion pr join pizza pi on pr.id_pizza = pi.id_pizza join local l on pr.id_local = l.id_local");
 		$consulta->execute();			
-		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "Pizza");	
+		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "Promocion");	
 		return $arrPersonas;
 	}
 	
-    public static function InsertarPizza($Pizza)
+    public static function InsertarPromocion($promocion)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("insert into pizza ( descripcion_pizza, precio_pizza, foto_pizza) 
-		VALUES (:descripcion_pizza,:precio_pizza,:foto_pizza)");
-		$consulta->bindValue(':descripcion_pizza',$Pizza->descripcion_pizza, PDO::PARAM_STR);
-		$consulta->bindValue(':precio_pizza',$Pizza->precio_pizza, PDO::PARAM_INT);
-		$consulta->bindValue(':foto_pizza', $Pizza->foto_pizza, PDO::PARAM_STR);
+		$consulta =$objetoAccesoDato->RetornarConsulta("insert into promocion ( precio_promo, id_pizza, id_local) 
+		VALUES (:precio_promo,:id_pizza,:id_local)");
+		$consulta->bindValue(':precio_promo',$promocion->precio_promo, PDO::PARAM_STR);
+		$consulta->bindValue(':id_pizza',$promocion->id_pizza, PDO::PARAM_INT);
+		$consulta->bindValue(':id_local', $promocion->id_local, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();		
 	}	
     
-	public static function BorrarPizza($idParametro)
+	public static function BorrarPromocion($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta = $objetoAccesoDato->RetornarConsulta("delete from pizza WHERE id_pizza =:id");	
+		$consulta = $objetoAccesoDato->RetornarConsulta("delete from promocion WHERE id_promo =:id");	
 		$consulta->bindValue(':id',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
 		return $consulta->rowCount();

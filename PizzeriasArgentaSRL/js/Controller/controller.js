@@ -1,9 +1,9 @@
-miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser) {
+miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser) {
     if ($auth.isAuthenticated()) {
         $scope.UserName = ($auth.getPayload()).usuario[0].nombre_usuario;
     }
 
-    $scope.Test = function(rol) {
+    $scope.Test = function (rol) {
         switch (rol) {
             case 'Admin':
                 $scope.FormIngreso.a_user = "AXELCORES";
@@ -27,26 +27,26 @@ miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser) {
 
     }
 
-    $scope.Login = function() {
+    $scope.Login = function () {
         user = {};
         user.name = $scope.FormIngreso.a_user;
         user.pass = $scope.FormIngreso.a_pass;
 
         fsUser.TraerLogin(user)
-            .then(function(response) {
+            .then(function (response) {
                 if ($auth.isAuthenticated()) {
                     $scope.FormIngreso.UserName = $scope.FormIngreso.a_user;
                     $state.reload()
                 }
             })
-            .catch(function(response) {
+            .catch(function (response) {
                 console.info("error", response);
             });
     }
 
 
 
-    $scope.Logout = function() {
+    $scope.Logout = function () {
         $scope.UserName = "";
         $state.go('Pizzeria.Principal');
         $auth.logout();
@@ -55,7 +55,7 @@ miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser) {
 
 });
 
-miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileUploader, fsUser) {
 
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
@@ -91,30 +91,30 @@ miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUp
         $scope.persona.pass_usuario = $stateParams.param1.pass_usuario;
         $scope.persona.id_usuario = $stateParams.param1.id_usuario;
     }
-    $scope.SubirdorArchivos.onCompleteAll = function(item, response, status, headers) {
+    $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
 
         if ($stateParams.param1 == null) {
             fsUser.InsertarUser('User', $scope.persona)
-                .then(function(respuesta) {
+                .then(function (respuesta) {
                     $state.go("Abm.UserGrilla");
 
-                }, function(error) {
+                }, function (error) {
                     console.info(error);
                 });
         } else {
 
 
             fsUser.ModificarUser('User', $scope.persona)
-                .then(function(respuesta) {
+                .then(function (respuesta) {
                     $state.go("Abm.UserGrilla");
 
-                }, function(error) {
+                }, function (error) {
                     console.info(error);
                 });
 
         }
     }
-    $scope.Guardar = function() {
+    $scope.Guardar = function () {
         if ($scope.SubirdorArchivos.queue != undefined) {
             var nombreFoto = "";
             for (i in $scope.SubirdorArchivos.queue) {
@@ -129,7 +129,7 @@ miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUp
     }
 });
 
-miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser) {
+miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
@@ -141,10 +141,10 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser)
     $scope.gridOptions.enableFiltering = false;
 
     fsUser.TraerTodos('User')
-        .then(function(respuesta) {
+        .then(function (respuesta) {
             $scope.gridOptions.data = respuesta;
 
-        }, function(error) {
+        }, function (error) {
             console.info(error);
         });
 
@@ -162,38 +162,38 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser)
         ];
     }
 
-    $scope.Borrar = function(id) {
+    $scope.Borrar = function (id) {
         fsUser.EliminarUser('User', id)
-            .then(function(respuesta) {
+            .then(function (respuesta) {
                 fsUser.TraerTodos('User')
-                    .then(function(respuesta) {
+                    .then(function (respuesta) {
                         $scope.gridOptions.data = respuesta;
 
-                    }, function(error) {
+                    }, function (error) {
                         console.info(error);
                     });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
 
     }
 
 
-    $scope.Modificar = function(id) {
+    $scope.Modificar = function (id) {
         fsUser.TraerUnObj('User', id)
-            .then(function(respuesta) {
+            .then(function (respuesta) {
 
                 $state.go("Abm.User", { 'param1': respuesta });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
     };
 
 });
 
-miApp.controller("controllerLocal", function($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerLocal", function ($scope, $state, $stateParams, FileUploader, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
@@ -218,30 +218,30 @@ miApp.controller("controllerLocal", function($scope, $state, $stateParams, FileU
         $scope.local.foto_local = Url + $stateParams.param1.foto_local;
         $scope.local.id_local = $stateParams.param1.id_local;
     }
-    $scope.SubirdorArchivos.onCompleteAll = function(item, response, status, headers) {
+    $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
 
         if ($stateParams.param1 == null) {
             fsUser.InsertarObj('Local', $scope.local)
-                .then(function(respuesta) {
+                .then(function (respuesta) {
                     $state.go("Abm.LocalGrilla");
 
-                }, function(error) {
+                }, function (error) {
                     console.info(error);
                 });
         } else {
 
 
             fsUser.ModificarObj('Local', $scope.local)
-                .then(function(respuesta) {
+                .then(function (respuesta) {
                     $state.go("Abm.LocalGrilla");
 
-                }, function(error) {
+                }, function (error) {
                     console.info(error);
                 });
 
         }
     }
-    $scope.Guardar = function() {
+    $scope.Guardar = function () {
         if ($scope.SubirdorArchivos.queue != undefined) {
             var nombreFoto = "";
             for (i in $scope.SubirdorArchivos.queue) {
@@ -256,7 +256,7 @@ miApp.controller("controllerLocal", function($scope, $state, $stateParams, FileU
     }
 });
 
-miApp.controller("controllerLocalesGrilla", function($scope, $state, $http, fsUser) {
+miApp.controller("controllerLocalesGrilla", function ($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
@@ -268,10 +268,10 @@ miApp.controller("controllerLocalesGrilla", function($scope, $state, $http, fsUs
     $scope.gridOptions.enableFiltering = false;
 
     fsUser.TraerTodos('Local')
-        .then(function(respuesta) {
+        .then(function (respuesta) {
             $scope.gridOptions.data = respuesta;
 
-        }, function(error) {
+        }, function (error) {
             console.info(error);
         });
 
@@ -285,38 +285,38 @@ miApp.controller("controllerLocalesGrilla", function($scope, $state, $http, fsUs
         ];
     }
 
-    $scope.Borrar = function(id) {
+    $scope.Borrar = function (id) {
         fsUser.EliminarObj('Local', id)
-            .then(function(respuesta) {
+            .then(function (respuesta) {
                 fsUser.TraerTodos('Local')
-                    .then(function(respuesta) {
+                    .then(function (respuesta) {
                         $scope.gridOptions.data = respuesta;
 
-                    }, function(error) {
+                    }, function (error) {
                         console.info(error);
                     });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
 
     }
 
 
-    $scope.Modificar = function(id) {
+    $scope.Modificar = function (id) {
         fsUser.TraerUnObj('Local', id)
-            .then(function(respuesta) {
+            .then(function (respuesta) {
 
                 $state.go("Abm.Local", { 'param1': respuesta });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
     };
 
 });
 
-miApp.controller("controllerPizza", function($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerPizza", function ($scope, $state, $stateParams, FileUploader, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
@@ -337,30 +337,30 @@ miApp.controller("controllerPizza", function($scope, $state, $stateParams, FileU
         $scope.Pizza.foto_pizza = Url + $stateParams.param1.foto_pizza;
         $scope.Pizza.id_pizza = $stateParams.param1.id_pizza;
     }
-    $scope.SubirdorArchivos.onCompleteAll = function(item, response, status, headers) {
+    $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
 
         if ($stateParams.param1 == null) {
             fsUser.InsertarObj('Pizza', $scope.Pizza)
-                .then(function(respuesta) {
+                .then(function (respuesta) {
                     $state.go("Abm.PizzaGrilla");
 
-                }, function(error) {
+                }, function (error) {
                     console.info(error);
                 });
         } else {
 
 
             fsUser.ModificarObj('Pizza', $scope.Pizza)
-                .then(function(respuesta) {
+                .then(function (respuesta) {
                     $state.go("Abm.PizzaGrilla");
 
-                }, function(error) {
+                }, function (error) {
                     console.info(error);
                 });
 
         }
     }
-    $scope.Guardar = function() {
+    $scope.Guardar = function () {
         if ($scope.SubirdorArchivos.queue != undefined) {
             var nombreFoto = "";
             for (i in $scope.SubirdorArchivos.queue) {
@@ -375,7 +375,7 @@ miApp.controller("controllerPizza", function($scope, $state, $stateParams, FileU
     }
 });
 
-miApp.controller("controllerPizzas", function($scope, $state, $http, fsUser) {
+miApp.controller("controllerPizzas", function ($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
@@ -387,10 +387,10 @@ miApp.controller("controllerPizzas", function($scope, $state, $http, fsUser) {
     $scope.gridOptions.enableFiltering = false;
 
     fsUser.TraerTodos('Pizza')
-        .then(function(respuesta) {
+        .then(function (respuesta) {
             $scope.gridOptions.data = respuesta;
 
-        }, function(error) {
+        }, function (error) {
             console.info(error);
         });
 
@@ -404,138 +404,97 @@ miApp.controller("controllerPizzas", function($scope, $state, $http, fsUser) {
         ];
     }
 
-    $scope.Borrar = function(id) {
+    $scope.Borrar = function (id) {
         fsUser.EliminarObj('Pizza', id)
-            .then(function(respuesta) {
+            .then(function (respuesta) {
                 fsUser.TraerTodos('Pizza')
-                    .then(function(respuesta) {
+                    .then(function (respuesta) {
                         $scope.gridOptions.data = respuesta;
 
-                    }, function(error) {
+                    }, function (error) {
                         console.info(error);
                     });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
 
     }
 
 
-    $scope.Modificar = function(id) {
+    $scope.Modificar = function (id) {
         fsUser.TraerUnObj('Pizza', id)
-            .then(function(respuesta) {
+            .then(function (respuesta) {
 
                 $state.go("Abm.Pizza", { 'param1': respuesta });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
     };
 
 });
 
-miApp.controller("controllerPromocion", function($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerPromocion", function ($scope, $state, $stateParams, FileUploader, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
-    if ($stateParams.param1 == null) {
-        $scope.Accion = "Nueva Promocion"
-        //inicio las variables
-        $scope.Pizza = {};
-        $scope.Pizza.precio_pizza = 2;
-        $scope.Pizza.foto_pizza = Url + "fotos/pordefecto.png";
-
-
-    } else {
-        $scope.Accion = "Modificar Promocion"
-        //inicio las variables
-        $scope.Pizza = {};
-        $scope.Pizza.descripcion_pizza = $stateParams.param1.descripcion_pizza;
-        $scope.Pizza.precio_pizza = $stateParams.param1.precio_pizza;
-        $scope.Pizza.foto_pizza = Url + $stateParams.param1.foto_pizza;
-        $scope.Pizza.id_pizza = $stateParams.param1.id_pizza;
-        $scope.Pizza.id_local = $stateParams.param1.id_local;
-    }
+    $scope.Accion = "Nueva Promocion";
+    $scope.Pizza = {};
+    $scope.Pizza.precio_promo = 3;
+    //inicio las variables
+    
 
 
     $scope.pizza = fsUser.TraerTodos('Pizza')
-        .then(function(respuesta) {
+        .then(function (respuesta) {
             $scope.itemsSelectPizza = {};
             $scope.itemsSelectPizza = respuesta;
-        }, function(error) {
+        }, function (error) {
             console.info(error);
         });
 
     $scope.local = fsUser.TraerTodos('Local')
-        .then(function(respuesta) {
+        .then(function (respuesta) {
             $scope.itemsSelectLocal = {};
             $scope.itemsSelectLocal = respuesta;
-        }, function(error) {
+        }, function (error) {
             console.info(error);
         });
 
-    $scope.SubirdorArchivos.onCompleteAll = function(item, response, status, headers) {
-        if (objeSeleccionadoPizza != null && objeSeleccionadoLocal != null) {
-            $scope.Pizza.id_pizza = objeSeleccionadoPizza.id_pizza;
-            $scope.Pizza.id_local = objeSeleccionadoLocal.id_local;
-        }
-        else
+
+    $scope.Guardar = function () {
+        if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null)
             return;
 
-        if ($stateParams.param1 == null) {
-            fsUser.InsertarObj('Promocion', $scope.Pizza)
-                .then(function(respuesta) {
-                    $state.go("Abm.Promociones");
+        $scope.Pizza.id_local = $scope.objeSeleccionadoLocal.id_local;
+        $scope.Pizza.id_pizza = $scope.objeSeleccionadoPizza.id_pizza;
+        fsUser.InsertarObj('Promocion', $scope.Pizza)
+            .then(function (respuesta) {
+                $state.go("Abm.PromocionGrilla");
 
-                }, function(error) {
-                    console.info(error);
-                });
-        } else {
-
-
-            fsUser.ModificarObj('Promocion', $scope.Pizza)
-                .then(function(respuesta) {
-                    $state.go("Abm.Promociones");
-
-                }, function(error) {
-                    console.info(error);
-                });
-
-        }
-    }
-    $scope.Guardar = function() {
-        if ($scope.SubirdorArchivos.queue != undefined) {
-            var nombreFoto = "";
-            for (i in $scope.SubirdorArchivos.queue) {
-                if (nombreFoto != "")
-                    nombreFoto = nombreFoto + ";" + ($scope.SubirdorArchivos.queue[i]._file.name);
-                else
-                    nombreFoto = ($scope.SubirdorArchivos.queue[i]._file.name);
-            }
-            $scope.Pizza.foto_pizza = nombreFoto;
-        }
-        $scope.SubirdorArchivos.uploadAll();
+            }, function (error) {
+                console.info(error);
+            });
     }
 });
 
-miApp.controller("controllerPromociones", function($scope, $state, $http, fsUser) {
+miApp.controller("controllerPromociones", function ($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
-		
-    $scope.titulo = "Pizzas";
+
+    $scope.titulo = "Promocion";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
     $scope.gridOptions.columnDefs = columnDefs();
     $scope.gridOptions.enableFiltering = false;
 
-    fsUser.TraerTodos('Pizza')
-        .then(function(respuesta) {
+    fsUser.TraerTodos('Promocion')
+        .then(function (respuesta) {
             $scope.gridOptions.data = respuesta;
-
-        }, function(error) {
+        }, function (error) {
             console.info(error);
         });
 
@@ -543,39 +502,29 @@ miApp.controller("controllerPromociones", function($scope, $state, $http, fsUser
     function columnDefs() {
         return [
             { field: 'descripcion_pizza', name: 'Nombre' },
-            { field: 'precio_pizza', name: 'Precio' },
-            { field: 'id_pizza', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
-            { field: 'id_pizza', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" }
+            { field: 'precio_promo', name: 'Precio' },
+            { field: 'nombre_local', name: 'Local' },
+            {
+                field: 'id_promocion', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" "
+                + "ng-click=\"grid.appScope.Borrar(row.entity.id_promo)\"><span "
+                + "class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>"
+            }
         ];
     }
 
-    $scope.Borrar = function(id) {
-        fsUser.EliminarObj('Pizza', id)
-            .then(function(respuesta) {
-                fsUser.TraerTodos('Pizza')
-                    .then(function(respuesta) {
+    $scope.Borrar = function (id) {
+        fsUser.EliminarObj('Promocion', id)
+            .then(function (respuesta) {
+                fsUser.TraerTodos('Promocion')
+                    .then(function (respuesta) {
                         $scope.gridOptions.data = respuesta;
 
-                    }, function(error) {
+                    }, function (error) {
                         console.info(error);
                     });
 
-            }, function(error) {
+            }, function (error) {
                 console.info(error);
             });
-
     }
-
-
-    $scope.Modificar = function(id) {
-        fsUser.TraerUnObj('Pizza', id)
-            .then(function(respuesta) {
-
-                $state.go("Abm.Pizza", { 'param1': respuesta });
-
-            }, function(error) {
-                console.info(error);
-            });
-    };
-
 });

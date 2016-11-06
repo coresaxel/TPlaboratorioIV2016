@@ -12,7 +12,7 @@
 			<select ng-model="objeSeleccionadoLocal" ng-options="pizza as pizza.nombre_local for pizza in itemsSelectLocal track by pizza.id_local">
 				<option value="">* Elige Un Local *</option>
 			</select>
-			<input type="number" min="0" name="nombre" ng-model="Pizza.precio_pizza" placeholder="Ingrese Precio" value="" required/>
+			<input type="number" min="0" name="nombre" ng-model="Pizza.precio_promo" placeholder="Ingrese Precio" required/>
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 			<input type="hidden" name="idOculto" id="id" value="" /><br>
 			<a class="btn btn-info " name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
