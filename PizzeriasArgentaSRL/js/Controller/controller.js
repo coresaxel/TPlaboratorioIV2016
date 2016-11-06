@@ -58,7 +58,7 @@ miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser) {
 miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUploader, fsUser) {
 
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
 
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
@@ -131,7 +131,7 @@ miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUp
 
 miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
 
     $scope.titulo = "Usuarios";
     $scope.gridOptions = {};
@@ -195,7 +195,8 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser)
 
 miApp.controller("controllerLocal", function($scope, $state, $stateParams, FileUploader, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
+
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
         $scope.Accion = "Nuevo Local"
@@ -257,7 +258,8 @@ miApp.controller("controllerLocal", function($scope, $state, $stateParams, FileU
 
 miApp.controller("controllerLocalesGrilla", function($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
+
     $scope.titulo = "Locales";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
@@ -316,7 +318,8 @@ miApp.controller("controllerLocalesGrilla", function($scope, $state, $http, fsUs
 
 miApp.controller("controllerPizza", function($scope, $state, $stateParams, FileUploader, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
+
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
         $scope.Accion = "Nueva Pizza"
@@ -374,7 +377,8 @@ miApp.controller("controllerPizza", function($scope, $state, $stateParams, FileU
 
 miApp.controller("controllerPizzas", function($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
+
     $scope.titulo = "Pizzas";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
@@ -433,7 +437,8 @@ miApp.controller("controllerPizzas", function($scope, $state, $http, fsUser) {
 
 miApp.controller("controllerPromocion", function($scope, $state, $stateParams, FileUploader, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;
+        $state.go('Pizzeria.Principal');
+
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
         $scope.Accion = "Nueva Promocion"
@@ -517,7 +522,8 @@ miApp.controller("controllerPromocion", function($scope, $state, $stateParams, F
 
 miApp.controller("controllerPromociones", function($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
-        return;	
+        $state.go('Pizzeria.Principal');
+		
     $scope.titulo = "Pizzas";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
