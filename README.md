@@ -12,8 +12,8 @@ TP LaboratorioIV 2016
 
 <h4>El trabajo práctico deberá contener los siguientes ítem además de los requerimientos funcionales del sistema</h4>
  - ABM.
- - login (JWT).
- - Botones de test ( Administrador, encargado,empleado y cliente).
+ - login (JWT). +
+ - Botones de test ( Administrador, encargado,empleado y cliente). +
  - WEbServer(API rest).
  - Geo localización.
  - Generar documentos Excel.

@@ -1,4 +1,4 @@
-//estilos para las validaciones
+/*estilos para las validaciones*/
 
 input.ng-invalid {
     background-color:red;
@@ -7,8 +7,10 @@ input.ng-valid {
     background-color:green;
 }
 
-
-
+.myGrid {
+    width: 1080px;
+    height: 200px;
+  }
 
 /*
 
