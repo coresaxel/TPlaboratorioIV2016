@@ -114,7 +114,7 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
 				"contenidoBody":
 				{
 					templateUrl: "./Templates/Grilla/Grilla.html",
-					controller: "controllerLocalesGrilla"
+					controller: "controllerLocales"
 				}
 			}
 		})
