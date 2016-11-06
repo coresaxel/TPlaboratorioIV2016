@@ -15,7 +15,7 @@ if(Count($objUser) != 0)
 	//$token['id_usuario']=$objUser->id_usuario;
 	//$token["rol"]=$objUser->descripcion_rol;
 	$token["iat"]=time();//momento de creacion
-	$token["exp"]=time() + 60000;
+	$token["exp"]=time() + 300;
 	$jwt = JWT::encode($token, $ClaveDeEncriptacion);
 }
 else

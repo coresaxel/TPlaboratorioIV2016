@@ -1,13 +1,14 @@
 miApp.service('sUser', function ($http, $auth) {
   var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
 
-  this.TraerTodos = TraerTodos;
+    this.TraerTodos = TraerTodos;
   function TraerTodos(obj) {
     return $http.get(Url + obj)
       .then(function (respuesta) {
         return respuesta.data;
       })
   };
+
 
   this.TraerUnObj = TraerUnObj;
   function TraerUnObj(obj,id) {
