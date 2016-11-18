@@ -92,7 +92,7 @@ The classes are removed if the value they represent is false.
 
 */
 
-input[type="text"],input[type="email"]  {
+/*input[type="text"],input[type="email"]  {
 
 
 
@@ -100,7 +100,7 @@ input[type="text"],input[type="email"]  {
   color:black;
 height: 3em;
 width: 100%;
-}
+}*/
 
 label{
 
@@ -240,8 +240,8 @@ left:0px;
   background:#f0f0f0;
   margin:0;
 }
-
-input[type="text"],input[type="file"],,input[type="file"]{
+/*
+input[type="text"],input[type="file"]{
   width:92%;
   background:#fff;
   margin-bottom:2%;
@@ -251,7 +251,7 @@ input[type="text"],input[type="file"],,input[type="file"]{
   font-size:140%;
   font-weight: 800;
   color:#555;
-}
+}*/
 select{
   width:100%;
   background:#fff;
@@ -367,7 +367,7 @@ position: absolute;
   display:block;
  
   border:hidden;
-  //width:150px;
+  width:150px;
   background:Blue;
   margin-top:1%;
   padding:6px;

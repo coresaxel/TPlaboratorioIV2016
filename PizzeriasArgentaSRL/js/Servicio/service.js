@@ -1,5 +1,6 @@
 miApp.service('sUser', function ($http, $auth) {
-  var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+  //var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+var Url = 'http://labivaxel.esy.es/ws1/';
 
     this.TraerTodos = TraerTodos;
   function TraerTodos(obj) {

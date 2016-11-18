@@ -1,19 +1,20 @@
 <?php
-require_once('Clases/AccesoDatos.php');
-require_once('Clases/User.php');
-require_once('Clases/Local.php');
-require_once('Clases/Pizza.php');
-require_once('Clases/Promocion.php');
-require 'vendor/autoload.php';
+require_once('./Clases/AccesoDatos.php');
+require_once('./Clases/User.php');
+require_once('./Clases/Local.php');
+require_once('./Clases/Pizza.php');
+require_once('./Clases/Promocion.php');
+require_once('./Clases/Pedido.php');
+require './vendor/autoload.php';
 
-$configuration = [
-    'settings' => [
-        'displayErrorDetails' => true,
-    ],
-];
+function Url(){
+    return 'http://labivaxel.esy.es/ws1/fotos/';
+    //return 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
+}
+
+$configuration = ['settings' => ['displayErrorDetails' => true,],];
 $c = new \Slim\Container($configuration);
 $app = new \Slim\App($c);
-
 
 $app->post('/archivos', function ($request, $response, $args) {
     
@@ -32,7 +33,7 @@ $app->post('/archivos', function ($request, $response, $args) {
 //***********************************USER********************************//
 /*  GET: Para consultar y leer recursos */
 $app->get('/', function ($request, $response, $args) {
-    $response->write("Welcome to Slim!");
+    $response->write("Welcome to Slim! " . __DIR__);
     return $response;
 });
 
@@ -53,7 +54,6 @@ $app->get('/User/{objeto}', function ($request, $response, $args) {
 
 /* POST: Para crear recursos */
 $app->post('/User/{objeto}', function ($request, $response, $args) {
-    $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     
     $persona=json_decode($args['objeto']);
     $persona->foto_persona=explode(';',$persona->foto_persona);
@@ -64,7 +64,7 @@ $app->post('/User/{objeto}', function ($request, $response, $args) {
             $rutaNueva=$persona->dni_persona. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
-            $arrayFoto[]= $Url.$rutaNueva;
+            $arrayFoto[]= Url() .$rutaNueva;
         } 
         $persona->foto_persona=json_encode($arrayFoto); 
     }
@@ -73,7 +73,6 @@ $app->post('/User/{objeto}', function ($request, $response, $args) {
 
 // /* PUT: Para editar recursos */
 $app->put('/User/{objeto}', function ($request, $response, $args) {
-    $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     $persona=json_decode($args['objeto']);
     $persona->foto_persona=explode(';',$persona->foto_persona);
     $arrayFoto = array();
@@ -83,7 +82,7 @@ $app->put('/User/{objeto}', function ($request, $response, $args) {
             $rutaNueva=$persona->dni_persona. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
-            $arrayFoto[]= $Url.$rutaNueva;
+            $arrayFoto[]= Url().$rutaNueva;
         } 
         $persona->foto_persona=json_encode($arrayFoto); 
     }
@@ -115,7 +114,6 @@ $app->get('/Local/{objeto}', function ($request, $response, $args) {
 
 /* POST: Para crear recursos */
 $app->post('/Local/{objeto}', function ($request, $response, $args) {
-    $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     
     $persona=json_decode($args['objeto']);
     $persona->foto_local=explode(';',$persona->foto_local);
@@ -126,7 +124,7 @@ $app->post('/Local/{objeto}', function ($request, $response, $args) {
             $rutaNueva=$persona->nombre_local. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
-            $arrayFoto[]= $Url.$rutaNueva;
+            $arrayFoto[]= Url().$rutaNueva;
         } 
         $persona->foto_local=json_encode($arrayFoto); 
     }
@@ -135,7 +133,6 @@ $app->post('/Local/{objeto}', function ($request, $response, $args) {
 
 // /* PUT: Para editar recursos */
 $app->put('/Local/{objeto}', function ($request, $response, $args) {
-    $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     $persona=json_decode($args['objeto']);
     $persona->foto_local=explode(';',$persona->foto_local);
     $arrayFoto = array();
@@ -145,7 +142,7 @@ $app->put('/Local/{objeto}', function ($request, $response, $args) {
             $rutaNueva=$persona->nombre_local. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
-            $arrayFoto[]= $Url.$rutaNueva;
+            $arrayFoto[]= Url().$rutaNueva;
         } 
         $persona->foto_local=json_encode($arrayFoto); 
     }
@@ -177,7 +174,6 @@ $app->get('/Pizza/{objeto}', function ($request, $response, $args) {
 
 /* POST: Para crear recursos */
 $app->post('/Pizza/{objeto}', function ($request, $response, $args) {
-    $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     
     $persona=json_decode($args['objeto']);
     $persona->foto_pizza=explode(';',$persona->foto_pizza);
@@ -188,7 +184,7 @@ $app->post('/Pizza/{objeto}', function ($request, $response, $args) {
             $rutaNueva=$persona->descripcion_pizza. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
-            $arrayFoto[]= $Url.$rutaNueva;
+            $arrayFoto[]= Url().$rutaNueva;
         } 
         $persona->foto_pizza=json_encode($arrayFoto); 
     }
@@ -197,7 +193,6 @@ $app->post('/Pizza/{objeto}', function ($request, $response, $args) {
 
 // /* PUT: Para editar recursos */
 $app->put('/Pizza/{objeto}', function ($request, $response, $args) {
-    $Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
     $persona=json_decode($args['objeto']);
     $persona->foto_pizza=explode(';',$persona->foto_pizza);
     $arrayFoto = array();
@@ -207,7 +202,7 @@ $app->put('/Pizza/{objeto}', function ($request, $response, $args) {
             $rutaNueva=$persona->descripcion_pizza. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
             copy($rutaVieja, "fotos/".$rutaNueva);
             unlink($rutaVieja);
-            $arrayFoto[]= $Url.$rutaNueva;
+            $arrayFoto[]= Url().$rutaNueva;
         } 
         $persona->foto_pizza=json_encode($arrayFoto); 
     }
@@ -236,6 +231,22 @@ $app->delete('/Promocion/{id}', function ($request, $response, $args) {
     return $response->write(Promocion::BorrarPromocion($args['id']));
 });
 //***********************************PROMOCION********************************//
+
+//***********************************PEDIDO********************************//
+$app->get('/Pedido', function ($request, $response, $args) {
+    return $response->write(json_encode(Pedido::TraerTodasLosPedidos()));
+});
+
+/* POST: Para crear recursos */
+$app->post('/Pedido/{objeto}', function ($request, $response, $args) {
+    return $response->write(Pedido::InsertarPedido(json_decode($args['objeto']))); 
+});
+
+// /* DELETE: Para eliminar recursos */
+$app->delete('/Pedido/{id}', function ($request, $response, $args) {
+    return $response->write(Pedido::BorrarPedido($args['id']));
+});
+//***********************************PEDIDO********************************//
 
 /* Step 4: Run the Slim application*/
 $app->run();

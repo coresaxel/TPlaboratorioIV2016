@@ -1,5 +1,5 @@
 <?php
-require_once"accesoDatos.php";
+require_once"AccesoDatos.php";
 class User
 {
 //--------------------------------------------------------------------------------//
@@ -15,13 +15,14 @@ class User
 	public $latitud_persona;
 	public $longitud_persona;
 	public $foto_persona;
+	public $nombre_local;
 //--------------------------------------------------------------------------------//
 
 //--METODO DE CLASE
 	public static function TraerUnaPersona($idParametro) 
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local from usuario u join rol r on u.id_rol = r.id_rol JOIN local l ON l.id_local = u.id_local where id_usuario =:id");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local from usuario u join rol r on u.id_rol = r.id_rol left join local l ON u.id_local = l.id_local where id_usuario =:id");
 		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('User');
@@ -61,8 +62,8 @@ class User
 		$consulta->bindValue(':apellido', $persona->apellido_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dni', $persona->dni_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dir',$persona->direccion_persona, PDO::PARAM_STR);
-		$consulta->bindValue(':lat', 0, PDO::PARAM_INT);
-		$consulta->bindValue(':long', 0, PDO::PARAM_INT);
+		$consulta->bindValue(':lat', $persona->latitud_persona, PDO::PARAM_INT);
+		$consulta->bindValue(':long', $persona->longitud_persona, PDO::PARAM_INT);
 		$consulta->bindValue(':foto', $persona->foto_persona, PDO::PARAM_STR);
 		return $consulta->execute();
 	}

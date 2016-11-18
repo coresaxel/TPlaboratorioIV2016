@@ -1,6 +1,6 @@
 <?php
-include_once __DIR__ . '\..\vendor\autoload.php';
-require_once __DIR__ . '\User.php';
+include_once './../vendor/autoload.php';
+require_once './User.php';
 
 use \Firebase\JWT\JWT;
 $DatosPorPost = file_get_contents("php://input");

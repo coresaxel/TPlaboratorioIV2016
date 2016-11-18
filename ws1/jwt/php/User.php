@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '\AccesoDatos.php';
+require_once './../../Clases/AccesoDatos.php';
 class Autenticador{
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS

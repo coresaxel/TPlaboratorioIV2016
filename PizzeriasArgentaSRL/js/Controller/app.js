@@ -1,5 +1,6 @@
 var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'satellizer', 'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit']);
-var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+//var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+var Url = 'http://labivaxel.esy.es/ws1/';
 
 
 miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
@@ -193,6 +194,45 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
 				{
 					templateUrl: "./Templates/Grilla/Grilla.html",
 					controller: "controllerPromociones"
+				}
+			}
+		})
+		.state(
+		"Abm.Pedido", {
+			cache: true,
+			url: "/Pedido",
+			params: {
+				param1: null
+			},
+			views:
+			{
+				"contenido":
+				{
+					templateUrl: "./Templates/User/UserBarra.html",
+					controller: "controllerLogin"
+				},
+				"contenidoBody":
+				{
+					templateUrl: "./Templates/Pedido/AltaPedido.html",
+					controller: "controllerPedido"
+				}
+			}
+		})
+		.state(
+		"Abm.PedidoGrilla", {
+			cache: true,
+			url: "/Pedidos",
+			views:
+			{
+				"contenido":
+				{
+					templateUrl: "./Templates/User/UserBarra.html",
+					controller: "controllerLogin"
+				},
+				"contenidoBody":
+				{
+					templateUrl: "./Templates/Grilla/Grilla.html",
+					controller: "controllerPedidos"
 				}
 			}
 		});

@@ -1,6 +1,6 @@
 <?php
 require_once"AccesoDatos.php";
-class Promocion
+class Pedido
 {
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS
@@ -12,16 +12,16 @@ class Promocion
 	public $nombre_local;
 //--------------------------------------------------------------------------------//
 //--METODO DE CLASE
-	public static function TraerTodasLasPromociones()
+	public static function TraerTodasLosPedidos()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-	    $consulta =$objetoAccesoDato->RetornarConsulta("select pr.id_promo, pr.precio_promo,  pi.id_pizza, pi.descripcion_pizza, l.id_local, l.nombre_local FROM promocion pr join pizza pi on pr.id_pizza = pi.id_pizza join local l on pr.id_local = l.id_local");
+	    $consulta =$objetoAccesoDato->RetornarConsulta("select * FROM pedido");
 		$consulta->execute();			
-		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "Promocion");	
+		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "Pedido");	
 		return $arrPersonas;
 	}
 	
-    public static function InsertarPromocion($promocion)
+    public static function InsertarPedido($promocion)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("insert into promocion ( precio_promo, id_pizza, id_local) 
@@ -33,10 +33,10 @@ class Promocion
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();		
 	}	
     
-	public static function BorrarPromocion($idParametro)
+	public static function BorrarPedido($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta = $objetoAccesoDato->RetornarConsulta("delete from promocion WHERE id_promo =:id");	
+		$consulta = $objetoAccesoDato->RetornarConsulta("delete from pedido WHERE id_pedido =:id");	
 		$consulta->bindValue(':id',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
 		return $consulta->rowCount();

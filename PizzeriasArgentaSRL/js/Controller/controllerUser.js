@@ -76,7 +76,6 @@ miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileU
         $scope.persona.pass_usuario = "1234";
         $scope.persona.pass_usuario = "1234";
     } else {
-        console.info($stateParams.param1);
         $scope.Accion = "Modificar Usuario"
         //inicio las variables
         $scope.persona = {};
@@ -94,7 +93,7 @@ miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileU
     $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
 
         if ($stateParams.param1 == null) {
-            fsUser.InsertarUser('User', $scope.persona)
+            fsUser.InsertarObj('User', $scope.persona)
                 .then(function (respuesta) {
                     $state.go("Abm.UserGrilla");
 
@@ -104,7 +103,7 @@ miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileU
         } else {
 
 
-            fsUser.ModificarUser('User', $scope.persona)
+            fsUser.ModificarObj('User', $scope.persona)
                 .then(function (respuesta) {
                     $state.go("Abm.UserGrilla");
 
@@ -157,13 +156,14 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
             { field: 'direccion_persona', name: 'Dirección' },
             { field: 'descripcion_rol', name: 'Rol' },
             { field: 'dni_persona', name: 'Dni' },
+            { field: 'nombre_local', name: 'Trabajo' },
             { field: 'id_usuario', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
             { field: 'id_usuario', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" }
         ];
     }
 
     $scope.Borrar = function (id) {
-        fsUser.EliminarUser('User', id)
+        fsUser.EliminarObj('User', id)
             .then(function (respuesta) {
                 fsUser.TraerTodos('User')
                     .then(function (respuesta) {
@@ -183,7 +183,6 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
     $scope.Modificar = function (id) {
         fsUser.TraerUnObj('User', id)
             .then(function (respuesta) {
-
                 $state.go("Abm.User", { 'param1': respuesta });
 
             }, function (error) {

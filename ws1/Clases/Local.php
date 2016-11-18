@@ -1,5 +1,5 @@
 <?php
-require_once"accesoDatos.php";
+require_once"AccesoDatos.php";
 class Local
 {
 //--------------------------------------------------------------------------------//
@@ -38,8 +38,8 @@ class Local
 		VALUES (:nombre_local,:direccion_local,:latitud_local,:longitud_local,:foto_local)");
 		$consulta->bindValue(':nombre_local',$Local->nombre_local, PDO::PARAM_STR);
 		$consulta->bindValue(':direccion_local', $Local->direccion_local, PDO::PARAM_STR);
-		$consulta->bindValue(':latitud_local', 0, PDO::PARAM_INT);
-		$consulta->bindValue(':longitud_local', 0, PDO::PARAM_INT);
+		$consulta->bindValue(':latitud_local', $Local->latitud_local, PDO::PARAM_INT);
+		$consulta->bindValue(':longitud_local', $Local->longitud_local, PDO::PARAM_INT);
 		$consulta->bindValue(':foto_local', $Local->foto_local, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();		
@@ -53,8 +53,8 @@ class Local
 		$consulta->bindValue(':id',$Local->id_local, PDO::PARAM_INT);
 		$consulta->bindValue(':nombre_local',$Local->nombre_local, PDO::PARAM_STR);
 		$consulta->bindValue(':direccion_local', $Local->direccion_local, PDO::PARAM_STR);
-		$consulta->bindValue(':latitud_local', 0, PDO::PARAM_INT);
-		$consulta->bindValue(':longitud_local', 0, PDO::PARAM_INT);
+		$consulta->bindValue(':latitud_local', $Local->latitud_local, PDO::PARAM_INT);
+		$consulta->bindValue(':longitud_local', $Local->longitud_local, PDO::PARAM_INT);
 		$consulta->bindValue(':foto_local', $Local->foto_local, PDO::PARAM_STR);
 		return $consulta->execute();
 	}
