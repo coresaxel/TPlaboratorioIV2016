@@ -1,8 +1,11 @@
-miApp.service('sUser', function ($http, $auth) {
-  //var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
-var Url = 'http://labivaxel.esy.es/ws1/';
+miApp.service('sUser', function ($http, $auth, $location) {
+  if ($location.$$host == "localhost") {
+    var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+  } else {
+    var Url = 'http://labivaxel.esy.es/ws1/';
+  }
 
-    this.TraerTodos = TraerTodos;
+  this.TraerTodos = TraerTodos;
   function TraerTodos(obj) {
     return $http.get(Url + obj)
       .then(function (respuesta) {
@@ -12,7 +15,7 @@ var Url = 'http://labivaxel.esy.es/ws1/';
 
 
   this.TraerUnObj = TraerUnObj;
-  function TraerUnObj(obj,id) {
+  function TraerUnObj(obj, id) {
     return $http.get(Url + obj + '/' + JSON.stringify(id))
       .then(function (respuesta) {
         return respuesta.data;
@@ -28,7 +31,7 @@ var Url = 'http://labivaxel.esy.es/ws1/';
   };
 
   this.InsertarObj = InsertarObj;
-  function InsertarObj(obj,persona) {
+  function InsertarObj(obj, persona) {
     return $http.post(Url + obj + '/' + JSON.stringify(persona))
       .then(function (respuesta) {
         return respuesta.data;
@@ -38,7 +41,7 @@ var Url = 'http://labivaxel.esy.es/ws1/';
   };
 
   this.EliminarObj = EliminarObj;
-  function EliminarObj(obj,id) {
+  function EliminarObj(obj, id) {
     return $http.delete(Url + obj + '/' + id)
       .then(function (respuesta) {
         return TraerTodos(obj);
@@ -46,12 +49,12 @@ var Url = 'http://labivaxel.esy.es/ws1/';
   };
 
   this.ModificarObj = ModificarObj;
-  function ModificarObj(obj,user) {
+  function ModificarObj(obj, user) {
     return $http.put(Url + obj + '/' + JSON.stringify(user))
       .then(function (respuesta) {
         return respuesta.data;
       }, function errorCallback(response) {
-        console.info("error",response);
+        console.info("error", response);
       })
   };
 

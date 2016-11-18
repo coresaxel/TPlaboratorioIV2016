@@ -1,6 +1,6 @@
 var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'satellizer', 'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit']);
-//var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
-var Url = 'http://labivaxel.esy.es/ws1/';
+var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+//var Url = 'http://labivaxel.esy.es/ws1/';
 
 
 miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {

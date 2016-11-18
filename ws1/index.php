@@ -8,8 +8,11 @@ require_once('./Clases/Pedido.php');
 require './vendor/autoload.php';
 
 function Url(){
-    return 'http://labivaxel.esy.es/ws1/fotos/';
-    //return 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
+    if($_SERVER['SERVER_NAME'] == "localhost"){
+        return 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/fotos/';
+    }else{
+        return 'http://labivaxel.esy.es/ws1/fotos/';        
+    }
 }
 
 $configuration = ['settings' => ['displayErrorDetails' => true,],];
@@ -33,7 +36,7 @@ $app->post('/archivos', function ($request, $response, $args) {
 //***********************************USER********************************//
 /*  GET: Para consultar y leer recursos */
 $app->get('/', function ($request, $response, $args) {
-    $response->write("Welcome to Slim! " . __DIR__);
+    $response->write("Welcome to Slim! " );
     return $response;
 });
 
