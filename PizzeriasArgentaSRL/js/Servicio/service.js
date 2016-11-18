@@ -1,8 +1,8 @@
-miApp.service('sUser', function ($http, $auth, $location) {
+miApp.service('sUser', function ($http, $auth, $location,fRutas) {
   if ($location.$$host == "localhost") {
-    var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+    var Url = fRutas.RutaDesarrollo;
   } else {
-    var Url = 'http://labivaxel.esy.es/ws1/';
+    var Url = fRutas.RutasWeb;
   }
 
   this.TraerTodos = TraerTodos;
