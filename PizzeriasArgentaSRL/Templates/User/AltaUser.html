@@ -21,6 +21,10 @@
 
 			<input type="password" ng-model="persona.pass_usuario" name="clave1" placeholder="Ingrese su Password" required />
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+			<div>
+				<ng-map center="current-location">
+				</ng-map>
+			</div>
 			<p>
 				<input type="hidden" name="idOculto" id="id" value="" />
 

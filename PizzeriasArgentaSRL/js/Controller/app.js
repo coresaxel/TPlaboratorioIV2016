@@ -1,6 +1,6 @@
-var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'satellizer', 'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit']);
+var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'satellizer', 'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit','ngMap']);
 
-miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
 
     var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
     //var Url = 'http://labivaxel.esy.es/ws1/';
@@ -27,11 +27,13 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
-                    templateUrl: "./Templates/User/presentacion.html"
+                    templateUrl: "./Templates/User/presentacion.html",
+                    cache: true
                 }
             }
         })
@@ -40,11 +42,11 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
             url: "/Abm",
             abstract: true,
             templateUrl: "./Templates/Abstractas/pep.html",
-            cache: true
+            cache: false
         })
         .state(
         "Abm.User", {
-            cache: true,
+            cache: false,
             url: "/User",
             params: {
                 param1: null
@@ -54,12 +56,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/User/AltaUser.html",
-                    controller: "controllerUser"
+                    controller: "controllerUser",
+                    cache: false
                 }
             }
         })
@@ -72,12 +76,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
-                    controller: "controllerUserGrilla"
+                    controller: "controllerUserGrilla",
+                    cache: true
                 }
             }
         })
@@ -93,12 +99,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Local/AltaLocal.html",
-                    controller: "controllerLocal"
+                    controller: "controllerLocal",
+                    cache: true
                 }
             }
         })
@@ -111,12 +119,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
-                    controller: "controllerLocales"
+                    controller: "controllerLocales",
+                    cache: true
                 }
             }
         })
@@ -132,12 +142,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Pizza/AltaPizza.html",
-                    controller: "controllerPizza"
+                    controller: "controllerPizza",
+                    cache: true
                 }
             }
         })
@@ -150,12 +162,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
-                    controller: "controllerPizzas"
+                    controller: "controllerPizzas",
+                    cache: true
                 }
             }
         })
@@ -171,12 +185,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Promocion/AltaPromocion.html",
-                    controller: "controllerPromocion"
+                    controller: "controllerPromocion",
+                    cache: true
                 }
             }
         })
@@ -189,12 +205,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
-                    controller: "controllerPromociones"
+                    controller: "controllerPromociones",
+                    cache: true
                 }
             }
         })
@@ -210,12 +228,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Pedido/AltaPedido.html",
-                    controller: "controllerPedido"
+                    controller: "controllerPedido",
+                    cache: true
                 }
             }
         })
@@ -228,12 +248,14 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 "contenido":
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
-                    controller: "controllerLogin"
+                    controller: "controllerLogin",
+                    cache: true
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
-                    controller: "controllerPedidos"
+                    controller: "controllerPedidos",
+                    cache: true
                 }
             }
         });

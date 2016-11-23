@@ -55,7 +55,7 @@ miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser, $lo
 
 });
 
-miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileUploader, fsUser, $location, fRutas) {
+miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileUploader, fsUser, $location, fRutas,NgMap) {
 
 
     if (!fsUser.VerificarLogin())
@@ -67,6 +67,12 @@ miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileU
         var Url = fRutas.RutasWeb;
     }
 
+
+NgMap.getMap().then(function(map) {
+    console.log(map.getCenter());
+    console.log('markers', map.markers);
+    console.log('shapes', map.shapes);
+  });
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
         $scope.Accion = "Nuevo Usuario"
