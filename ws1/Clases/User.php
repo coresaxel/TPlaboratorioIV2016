@@ -16,8 +16,8 @@ class User
 	public $longitud_persona;
 	public $foto_persona;
 	public $nombre_local;
+	public $estado_usuario;
 //--------------------------------------------------------------------------------//
-//--METODO STATICOS
 	public static function Login($usuario){
 		return User::Validar($usuario->name,$usuario->pass);
 	}
@@ -31,13 +31,11 @@ class User
 		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "User");	
 		return $arrPersonas;
 	}
-//--METODO STATICOS
 
-//--METODO DE CLASE
 	public static function TraerUnaPersona($idParametro) 
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local from usuario u join rol r on u.id_rol = r.id_rol left join local l ON u.id_local = l.id_local where id_usuario =:id");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol left join local l ON u.id_local = l.id_local where id_usuario =:id");
 		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('User');
@@ -47,8 +45,7 @@ class User
 	public static function TraerTodasLasPersonas()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from persona");
-	$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona from usuario u join rol r on u.id_rol = r.id_rol");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol");
 		$consulta->execute();			
 		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "User");	
 		return $arrPersonas;
@@ -83,10 +80,6 @@ class User
 		return $consulta->execute();
 	}
 
-//--------------------------------------------------------------------------------//
-
-//--------------------------------------------------------------------------------//
-
 	public static function InsertarPersona($persona)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -105,6 +98,16 @@ class User
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();		
 	}	
+
+	public static function ModificarEstado($id,$estado)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("update usuario set estado_usuario=:estado_usuario WHERE id_usuario=:id");
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+		$consulta->bindValue(':id',$id, PDO::PARAM_INT);
+		$consulta->bindValue(':estado_usuario', $estado, PDO::PARAM_INT);
+		return $consulta->execute();
+	}
 //--------------------------------------------------------------------------------//
 
 }

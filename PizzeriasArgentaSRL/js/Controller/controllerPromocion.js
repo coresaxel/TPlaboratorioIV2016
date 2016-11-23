@@ -1,13 +1,19 @@
-miApp.controller("controllerPromocion", function ($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerPromocion", function ($scope, $state, $stateParams, FileUploader, fsUser, $location, fRutas) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
+
+    if ($location.$$host == "localhost") {
+        var Url = fRutas.RutaDesarrollo;
+    } else {
+        var Url = fRutas.RutasWeb;
+    }
 
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     $scope.Accion = "Nueva Promocion";
     $scope.Pizza = {};
     $scope.Pizza.precio_promo = 3;
     //inicio las variables
-    
+
 
 
     $scope.pizza = fsUser.TraerTodos('Pizza')

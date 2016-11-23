@@ -93,6 +93,25 @@ $app->put('/User/{objeto}', function ($request, $response, $args) {
 
 });
 
+// /* PUT: Para editar recursos */
+$app->put('/UserEstado/{objeto}', function ($request, $response, $args) {
+    $persona=json_decode($args['objeto']);
+    $persona->foto_persona=explode(';',$persona->foto_persona);
+    $arrayFoto = array();
+    if(count($persona->foto_persona) > 0){
+        for ($i = 0; $i < count($persona->foto_persona); $i++ ){
+            $rutaVieja="fotos/".$persona->foto_persona[$i];
+            $rutaNueva=$persona->dni_persona. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
+            copy($rutaVieja, "fotos/".$rutaNueva);
+            unlink($rutaVieja);
+            $arrayFoto[]= Url().$rutaNueva;
+        } 
+        $persona->foto_persona=json_encode($arrayFoto); 
+    }
+    return $response->write(User::ModificarEstado($persona->id,$persona->estado));
+
+});
+
 // /* DELETE: Para eliminar recursos */
 $app->delete('/User/{id}', function ($request, $response, $args) {
     return $response->write(User::BorrarPersona($args['id']));
@@ -243,6 +262,12 @@ $app->get('/Pedido', function ($request, $response, $args) {
 /* POST: Para crear recursos */
 $app->post('/Pedido/{objeto}', function ($request, $response, $args) {
     return $response->write(Pedido::InsertarPedido(json_decode($args['objeto']))); 
+});
+
+// /* PUT: Para editar recursos */
+$app->put('/Pedido/{objeto}', function ($request, $response, $args) {
+    return $response->write(Pedido::ModificarPedido(json_decode($args['objeto'])));
+
 });
 
 // /* DELETE: Para eliminar recursos */

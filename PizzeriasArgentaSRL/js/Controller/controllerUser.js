@@ -1,4 +1,5 @@
-miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser) {
+miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser, $location, fRutas) {
+
     if ($auth.isAuthenticated()) {
         $scope.UserName = ($auth.getPayload()).usuario[0].nombre_usuario;
     }
@@ -24,7 +25,6 @@ miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser) {
                 break;
 
         }
-
     }
 
     $scope.Login = function () {
@@ -55,10 +55,17 @@ miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser) {
 
 });
 
-miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileUploader, fsUser, $location, fRutas) {
+
 
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
+
+    if ($location.$$host == "localhost") {
+        var Url = fRutas.RutaDesarrollo;
+    } else {
+        var Url = fRutas.RutasWeb;
+    }
 
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
@@ -157,8 +164,10 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
             { field: 'descripcion_rol', name: 'Rol' },
             { field: 'dni_persona', name: 'Dni' },
             { field: 'nombre_local', name: 'Trabajo' },
+            { field: 'estado_usuario', name: 'Estado', cellTemplate: '<div ng-if="row.entity.estado_usuario == 0">Inactivo</div/><div ng-if="row.entity.estado_usuario == 1">Activo</div/>' },
             { field: 'id_usuario', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
-            { field: 'id_usuario', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" }
+            { field: 'id_usuario', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" },
+            { field: 'id_usuario', name: 'Inhabilitar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Inhabilitar(row.entity.id_usuario,row.entity.estado_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Inhabilitar</button>" }
         ];
     }
 
@@ -189,6 +198,28 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
                 console.info(error);
             });
     };
+
+    $scope.Inhabilitar = function (id, estado) {
+        if(estado == 1){
+            estado = 0;
+        }else {
+            estado = 1;
+        }
+        fsUser.ModificarObj('UserEstado', {'id': id, 'estado': estado})
+            .then(function (respuesta) {
+                fsUser.TraerTodos('User')
+                    .then(function (respuesta) {
+                        $scope.gridOptions.data = respuesta;
+
+                    }, function (error) {
+                        console.info(error);
+                    });
+
+            }, function (error) {
+                console.info(error);
+            });
+    }
+
 
 });
 

@@ -1,6 +1,12 @@
-miApp.controller("controllerLocal", function ($scope, $state, $stateParams, FileUploader, fsUser) {
+miApp.controller("controllerLocal", function ($scope, $state, $stateParams, FileUploader, fsUser,$location, fRutas) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
+
+    if ($location.$$host == "localhost") {
+        var Url = fRutas.RutaDesarrollo;
+    } else {
+        var Url = fRutas.RutasWeb;
+    }
 
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
