@@ -16,13 +16,12 @@
 
 			<input type="text" name="dni" ng-model="persona.dni_persona" placeholder="Ingrese DNI" value="" required/>
 			<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-			<input type="text" name="direccion" ng-model="persona.direccion_persona" placeholder="Ingrese Direccion" value="" required/>
-
 
 			<input type="password" ng-model="persona.pass_usuario" name="clave1" placeholder="Ingrese su Password" required />
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 			<div>
-				<ng-map center="current-location" >
+				<ng-map center="current-location" on-click="placeMarker()">
+					<marker position="{{lat}},{{lng}}"></marker>
 				</ng-map>
 			</div>
 			<p>

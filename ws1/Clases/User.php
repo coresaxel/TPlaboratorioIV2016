@@ -74,8 +74,8 @@ class User
 		$consulta->bindValue(':apellido', $persona->apellido_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dni', $persona->dni_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dir',$persona->direccion_persona, PDO::PARAM_STR);
-		$consulta->bindValue(':lat', $persona->latitud_persona, PDO::PARAM_INT);
-		$consulta->bindValue(':long', $persona->longitud_persona, PDO::PARAM_INT);
+		$consulta->bindValue(':lat', $persona->latitud_persona, PDO::PARAM_STR);
+		$consulta->bindValue(':long', $persona->longitud_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':foto', $persona->foto_persona, PDO::PARAM_STR);
 		return $consulta->execute();
 	}
@@ -92,8 +92,8 @@ class User
 		$consulta->bindValue(':apellido', $persona->apellido_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dni', $persona->dni_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dir',$persona->direccion_persona, PDO::PARAM_STR);
-		$consulta->bindValue(':lat', 0, PDO::PARAM_INT);
-		$consulta->bindValue(':long', 0, PDO::PARAM_INT);
+		$consulta->bindValue(':lat', $persona->latitud_persona, PDO::PARAM_STR);
+		$consulta->bindValue(':long', $persona->longitud_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':foto', $persona->foto_persona, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();		

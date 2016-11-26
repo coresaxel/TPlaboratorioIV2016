@@ -10,6 +10,11 @@
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 			<input type="text" name="nombre" ng-model="local.direccion_local" placeholder="Ingrese Direccion" value="" required/>
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+			<div>
+				<ng-map center="current-location" on-click="placeMarker()">
+					<marker position="{{lat}},{{lng}}"></marker>
+				</ng-map>
+			</div>
 			<input type="hidden" name="idOculto" id="id" value="" />
 			<input type="file" nv-file-select="" uploader="SubirdorArchivos" multiple /><br/>
 

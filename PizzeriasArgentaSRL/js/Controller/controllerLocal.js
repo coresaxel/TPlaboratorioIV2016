@@ -13,7 +13,7 @@ miApp.controller("controllerLocal", function ($scope, $state, $stateParams, File
         $scope.Accion = "Nuevo Local"
         //inicio las variables
         $scope.local = {};
-        $scope.local.nombre_local = "Pizza Wilde";
+        $scope.local.nombre_local = "Pizzeria Wilde";
         $scope.local.direccion_local = "Wilde 123";
         $scope.local.latitud_local = 0;
         $scope.local.longitud_local = 0;
@@ -26,8 +26,10 @@ miApp.controller("controllerLocal", function ($scope, $state, $stateParams, File
         $scope.local.direccion_local = $stateParams.param1.direccion_local;
         $scope.local.latitud_local = $stateParams.param1.latitud_local;
         $scope.local.longitud_local = $stateParams.param1.longitud_local;
-        $scope.local.foto_local = Url + $stateParams.param1.foto_local;
+        $scope.local.foto_local = $stateParams.param1.foto_local;
         $scope.local.id_local = $stateParams.param1.id_local;
+        $scope.lat = $stateParams.param1.latitud_local;
+        $scope.lng = $stateParams.param1.longitud_local;
     }
     $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
 
@@ -64,6 +66,14 @@ miApp.controller("controllerLocal", function ($scope, $state, $stateParams, File
             $scope.local.foto_local = nombreFoto;
         }
         $scope.SubirdorArchivos.uploadAll();
+    }
+
+        $scope.placeMarker = function(e) {
+
+        var marker = new google.maps.Marker({ position: e.latLng, map: $scope.map });
+        $scope.map.panTo(e.latLng);
+        $scope.local.latitud_local = e.latLng.lat();
+        $scope.local.longitud_local = e.latLng.lng();
     }
 });
 

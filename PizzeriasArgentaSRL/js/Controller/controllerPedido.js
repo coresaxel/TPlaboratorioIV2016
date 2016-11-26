@@ -87,6 +87,11 @@ miApp.controller("controllerPedidos", function($scope, $state, $http, fsUser) {
                 + "class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>"
             },
             {
+                field: 'id_pedido', name: 'Mapa', cellTemplate: "<button class=\"btn btn-info\" "
+                + "ng-click=\"grid.appScope.Borrar(row.entity.id_pedido)\"><span "
+                + "class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>"
+            },
+            {
                 field: 'id_pedido', name: 'Cerrar', cellTemplate: "<button class=\"btn btn-warning\" "
                 + "ng-click=\"grid.appScope.CerrarPedido(row.entity.id_pedido)\"><span "
                 + "class=\"glyphicon glyphicon-remove-circle\"></span>Cerrar</button>"

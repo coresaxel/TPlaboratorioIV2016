@@ -1,10 +1,11 @@
-miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser, $location, fRutas) {
+miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser, $location, fRutas) {
 
     if ($auth.isAuthenticated()) {
         $scope.UserName = ($auth.getPayload()).usuario[0].nombre_usuario;
     }
 
-    $scope.Test = function (rol) {
+
+    $scope.Test = function(rol) {
         switch (rol) {
             case 'Admin':
                 $scope.FormIngreso.a_user = "AXELCORES";
@@ -27,26 +28,26 @@ miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser, $lo
         }
     }
 
-    $scope.Login = function () {
+    $scope.Login = function() {
         user = {};
         user.name = $scope.FormIngreso.a_user;
         user.pass = $scope.FormIngreso.a_pass;
 
         fsUser.TraerLogin(user)
-            .then(function (response) {
+            .then(function(response) {
                 if ($auth.isAuthenticated()) {
                     $scope.FormIngreso.UserName = $scope.FormIngreso.a_user;
                     $state.reload()
                 }
             })
-            .catch(function (response) {
+            .catch(function(response) {
                 console.info("error", response);
             });
     }
 
 
 
-    $scope.Logout = function () {
+    $scope.Logout = function() {
         $scope.UserName = "";
         $state.go('Pizzeria.Principal');
         $auth.logout();
@@ -55,8 +56,7 @@ miApp.controller("controllerLogin", function ($scope, $state, $auth, fsUser, $lo
 
 });
 
-miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileUploader, fsUser, $location, fRutas,NgMap) {
-
+miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUploader, fsUser, $location, fRutas, NgMap, $auth) {
 
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
@@ -67,12 +67,6 @@ miApp.controller("controllerUser", function ($scope, $state, $stateParams, FileU
         var Url = fRutas.RutasWeb;
     }
 
-
-NgMap.getMap().then(function(map) {
-    console.log(map.getCenter());
-    console.log('markers', map.markers);
-    console.log('shapes', map.shapes);
-  });
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     if ($stateParams.param1 == null) {
         $scope.Accion = "Nuevo Usuario"
@@ -99,34 +93,37 @@ NgMap.getMap().then(function(map) {
         $scope.persona.direccion_persona = $stateParams.param1.direccion_persona;
         $scope.persona.latitud_persona = $stateParams.param1.latitud_persona;
         $scope.persona.longitud_persona = $stateParams.param1.longitud_persona;
-        $scope.persona.foto_persona = Url + $stateParams.param1.foto_persona;
+        $scope.persona.foto_persona = $stateParams.param1.foto_persona;
         $scope.persona.pass_usuario = $stateParams.param1.pass_usuario;
         $scope.persona.id_usuario = $stateParams.param1.id_usuario;
+        $scope.lat = $stateParams.param1.latitud_persona;
+        $scope.lng = $stateParams.param1.longitud_persona;
     }
-    $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
+
+    $scope.SubirdorArchivos.onCompleteAll = function(item, response, status, headers) {
 
         if ($stateParams.param1 == null) {
             fsUser.InsertarObj('User', $scope.persona)
-                .then(function (respuesta) {
+                .then(function(respuesta) {
                     $state.go("Abm.UserGrilla");
 
-                }, function (error) {
+                }, function(error) {
                     console.info(error);
                 });
         } else {
 
 
             fsUser.ModificarObj('User', $scope.persona)
-                .then(function (respuesta) {
+                .then(function(respuesta) {
                     $state.go("Abm.UserGrilla");
 
-                }, function (error) {
+                }, function(error) {
                     console.info(error);
                 });
 
         }
     }
-    $scope.Guardar = function () {
+    $scope.Guardar = function() {
         if ($scope.SubirdorArchivos.queue != undefined) {
             var nombreFoto = "";
             for (i in $scope.SubirdorArchivos.queue) {
@@ -139,9 +136,20 @@ NgMap.getMap().then(function(map) {
         }
         $scope.SubirdorArchivos.uploadAll();
     }
+
+    $scope.placeMarker = function(e) {
+
+        var marker = new google.maps.Marker({ position: e.latLng, map: $scope.map });
+        $scope.map.panTo(e.latLng);
+        $scope.persona.latitud_persona = e.latLng.lat();
+        $scope.persona.longitud_persona = e.latLng.lng();
+    }
+
+
+
 });
 
-miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser) {
+miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
@@ -153,10 +161,10 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
     $scope.gridOptions.enableFiltering = false;
 
     fsUser.TraerTodos('User')
-        .then(function (respuesta) {
+        .then(function(respuesta) {
             $scope.gridOptions.data = respuesta;
 
-        }, function (error) {
+        }, function(error) {
             console.info(error);
         });
 
@@ -177,51 +185,51 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
         ];
     }
 
-    $scope.Borrar = function (id) {
+    $scope.Borrar = function(id) {
         fsUser.EliminarObj('User', id)
-            .then(function (respuesta) {
+            .then(function(respuesta) {
                 fsUser.TraerTodos('User')
-                    .then(function (respuesta) {
+                    .then(function(respuesta) {
                         $scope.gridOptions.data = respuesta;
 
-                    }, function (error) {
+                    }, function(error) {
                         console.info(error);
                     });
 
-            }, function (error) {
+            }, function(error) {
                 console.info(error);
             });
 
     }
 
 
-    $scope.Modificar = function (id) {
+    $scope.Modificar = function(id) {
         fsUser.TraerUnObj('User', id)
-            .then(function (respuesta) {
+            .then(function(respuesta) {
                 $state.go("Abm.User", { 'param1': respuesta });
 
-            }, function (error) {
+            }, function(error) {
                 console.info(error);
             });
     };
 
-    $scope.Inhabilitar = function (id, estado) {
-        if(estado == 1){
+    $scope.Inhabilitar = function(id, estado) {
+        if (estado == 1) {
             estado = 0;
-        }else {
+        } else {
             estado = 1;
         }
-        fsUser.ModificarObj('UserEstado', {'id': id, 'estado': estado})
-            .then(function (respuesta) {
+        fsUser.ModificarObj('UserEstado', { 'id': id, 'estado': estado })
+            .then(function(respuesta) {
                 fsUser.TraerTodos('User')
-                    .then(function (respuesta) {
+                    .then(function(respuesta) {
                         $scope.gridOptions.data = respuesta;
 
-                    }, function (error) {
+                    }, function(error) {
                         console.info(error);
                     });
 
-            }, function (error) {
+            }, function(error) {
                 console.info(error);
             });
     }
