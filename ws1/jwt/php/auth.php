@@ -12,7 +12,7 @@ if(Count($objUser) != 0)
 	$ClaveDeEncriptacion="estaeslaclave";
 	$token["usuario"]=$objUser;
 	$token["iat"]=time();
-	$token["exp"]=time() + 300;
+	$token["exp"]=time() + 600;
 	$jwt = JWT::encode($token, $ClaveDeEncriptacion);
 }
 else
