@@ -1,7 +1,7 @@
-{{titulo}}{{Incio.lat}}{{Final.lat}}
+{{titulo}}
 <div ui-grid="gridOptions" class="myGrid" ui-grid-pagination ui-grid-resize-columns></div>Incio.lat
-<ng-map ng-if="Incio" zoom="3" center="current-location" style="height:40%">
-  <directions draggable="true" panel="directions-panel" travel-mode="DRIVING" origin="{{Incio}}" destination="{{Final}}">
+<ng-map ng-if="Incio" zoom="3" center="current-location" style="height:40%;with: 40%">
+  <directions draggable="false" panel="directions-panel" travel-mode="DRIVING" origin="{{Incio}}" destination="{{Final}}">
   </directions>
   <custom-marker id="start" position="{{Incio}}">
     <div> Start Here </div>
@@ -10,3 +10,4 @@
     <div> Ends Here </div>
   </custom-marker>
 </ng-map>
+    

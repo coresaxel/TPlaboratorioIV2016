@@ -132,8 +132,6 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
             });
     }
     $scope.MostrarMapa = function (idUser, idLocal) {
-        
-    
         var local = fsUser.TraerUnObj('Local',idLocal)
             .then(function (respuesta) {
                 local = respuesta;
