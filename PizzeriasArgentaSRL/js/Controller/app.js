@@ -71,6 +71,29 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
             }
         })
         .state(
+        "Abm.UserVer", {
+            cache: false,
+            url: "/UserVer",
+            params: {
+                param1: null
+            },
+            views:
+            {
+                "contenido":
+                {
+                    templateUrl: "./Templates/User/UserBarra.html",
+                    controller: "controllerLogin",
+                    cache: true
+                },
+                "contenidoBody":
+                {
+                    templateUrl: "./Templates/User/User.html",
+                    controller: "controllerUserVer",
+                    cache: true
+                }
+            }
+        })
+        .state(
         "Abm.UserGrilla", {
             cache: true,
             url: "/Usuarios",
@@ -134,6 +157,29 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
             }
         })
         .state(
+        "Abm.LocalVer", {
+            cache: false,
+            url: "/LocalVer",
+            params: {
+                param1: null
+            },
+            views:
+            {
+                "contenido":
+                {
+                    templateUrl: "./Templates/User/UserBarra.html",
+                    controller: "controllerLogin",
+                    cache: true
+                },
+                "contenidoBody":
+                {
+                    templateUrl: "./Templates/Local/Local.html",
+                    controller: "controllerLocalVer",
+                    cache: true
+                }
+            }
+        })
+        .state(
         "Abm.Pizza", {
             cache: true,
             url: "/Pizza",
@@ -172,6 +218,29 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
                     controller: "controllerPizzas",
+                    cache: true
+                }
+            }
+        })
+        .state(
+        "Abm.PizzaVer", {
+            cache: false,
+            url: "/PizzaVer",
+            params: {
+                param1: null
+            },
+            views:
+            {
+                "contenido":
+                {
+                    templateUrl: "./Templates/User/UserBarra.html",
+                    controller: "controllerLogin",
+                    cache: true
+                },
+                "contenidoBody":
+                {
+                    templateUrl: "./Templates/Pizza/Pizza.html",
+                    controller: "controllerPizzaVer",
                     cache: true
                 }
             }

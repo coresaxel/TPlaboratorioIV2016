@@ -190,6 +190,7 @@ $app->get('/Pizza', function ($request, $response, $args) {
 $app->get('/Pizza/{objeto}', function ($request, $response, $args) {
     $id=json_decode($args['objeto']);
     $datos=Pizza::TraerUnaPizza($id);
+
     $datos->foto_pizza=json_decode($datos->foto_pizza);
     return $response->write(json_encode($datos));
 });

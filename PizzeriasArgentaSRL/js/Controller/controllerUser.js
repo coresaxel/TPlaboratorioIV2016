@@ -190,6 +190,7 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
             { field: 'dni_persona', name: 'Dni', enableFiltering: false },
             { field: 'nombre_local', name: 'Trabajo', enableFiltering: false },
             { field: 'estado_usuario', name: 'Estado', enableFiltering: false, cellTemplate: '<div ng-if="row.entity.estado_usuario == 0">Inactivo</div/><div ng-if="row.entity.estado_usuario == 1">Activo</div/>' },
+            { field: 'id_usuario', name: 'Perfil', enableFiltering: false, cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" },
             { field: 'id_usuario', name: 'Borrar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
             { field: 'id_usuario', name: 'Editar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" },
             { field: 'id_usuario', name: 'Inhabilitar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Inhabilitar(row.entity.id_usuario,row.entity.estado_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Inhabilitar</button>" }
@@ -223,6 +224,15 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
                 console.info(error);
             });
     };
+    $scope.Ver = function (id) {
+        fsUser.TraerUnObj('User', id)
+            .then(function (respuesta) {
+                $state.go("Abm.UserVer", { 'param1': respuesta });
+
+            }, function (error) {
+                console.info(error);
+            });
+    };
 
     $scope.Inhabilitar = function (id, estado) {
         if (estado == 1) {
@@ -248,5 +258,26 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
 
 });
 
+miApp.controller("controllerUserVer", function ($scope, $state, $stateParams, fsUser) {
+    if (!fsUser.VerificarLogin())
+        $state.go('Pizzeria.Principal');
+
+    if ($stateParams.param1 != null) {
+        $scope.persona = {};
+        $scope.persona.nombre_persona = $stateParams.param1.nombre_usuario;
+        $scope.persona.nombre_usuario = $stateParams.param1.nombre_usuario;
+        $scope.persona.dni_persona = $stateParams.param1.dni_persona;
+        $scope.persona.apellido_persona = $stateParams.param1.apellido_persona;
+        $scope.persona.direccion_persona = $stateParams.param1.direccion_persona;
+        $scope.persona.latitud_persona = $stateParams.param1.latitud_persona;
+        $scope.persona.longitud_persona = $stateParams.param1.longitud_persona;
+        $scope.persona.foto_persona = $stateParams.param1.foto_persona;
+        $scope.persona.pass_usuario = $stateParams.param1.pass_usuario;
+        $scope.persona.id_usuario = $stateParams.param1.id_usuario;
+    }else{
+        $state.go('Abm.UserGrilla');
+    }
+
+});
 
 

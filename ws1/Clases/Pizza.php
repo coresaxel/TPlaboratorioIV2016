@@ -13,7 +13,7 @@ class Pizza
 	public static function TraerUnaPizza($idParametro) 
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select id_pizza,descripcion_pizza, precio_pizza FROM pizza where id_pizza =:id");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select id_pizza,descripcion_pizza, precio_pizza,foto_pizza FROM pizza where id_pizza =:id");
 		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('Pizza');

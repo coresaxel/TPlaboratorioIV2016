@@ -1,0 +1,21 @@
+<h3>Nombre: {{local.nombre_local}}</h3>
+<div id="myCarousel" class="carousel" ng-if="local">
+    <div class="carousel-inner">
+        <div class="item" ng-class="{active:!$index}" ng-repeat="fot in local.foto_local"><img src="{{fot}}"></div>
+        <a class="carousel-control left" ng-non-bindable data-target="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control right" ng-non-bindable data-target="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div>
+        <ng-map center="{{local.latitud_local}},{{local.longitud_local}}">
+            <marker position="{{local.latitud_local}},{{local.longitud_local}}"></marker>
+        </ng-map>
+    </div>
+</div>
+
+<a class="btn btn-info" name="Volver" ui-sref="Abm.LocalGrilla"><span class="glyphicon glyphicon-save"></span>Volver</a>

@@ -22,7 +22,7 @@ miApp.controller("controllerPizza", function ($scope, $state, $stateParams, File
         $scope.Pizza = {};
         $scope.Pizza.descripcion_pizza = $stateParams.param1.descripcion_pizza;
         $scope.Pizza.precio_pizza = $stateParams.param1.precio_pizza;
-        $scope.Pizza.foto_pizza = Url + $stateParams.param1.foto_pizza;
+        $scope.Pizza.foto_pizza = $stateParams.param1.foto_pizza;
         $scope.Pizza.id_pizza = $stateParams.param1.id_pizza;
     }
     $scope.SubirdorArchivos.onCompleteAll = function (item, response, status, headers) {
@@ -87,6 +87,7 @@ miApp.controller("controllerPizzas", function ($scope, $state, $http, fsUser) {
         return [
             { field: 'descripcion_pizza', name: 'Nombre' },
             { field: 'precio_pizza', name: 'Precio' },
+            { field: 'id_pizza', name: 'Descripción', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" },
             { field: 'id_pizza', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
             { field: 'id_pizza', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" }
         ];
@@ -120,5 +121,30 @@ miApp.controller("controllerPizzas", function ($scope, $state, $http, fsUser) {
                 console.info(error);
             });
     };
+
+    $scope.Ver = function (id) {
+        fsUser.TraerUnObj('Pizza', id)
+            .then(function (respuesta) {
+                $state.go("Abm.PizzaVer", { 'param1': respuesta });
+
+            }, function (error) {
+                console.info(error);
+            });
+    };
+
+});
+
+miApp.controller("controllerPizzaVer", function ($scope, $state, $stateParams, fsUser) {
+    if (!fsUser.VerificarLogin())
+        $state.go('Pizzeria.Principal');
+console.info($stateParams.param1)
+    if ($stateParams.param1 != null) {
+        $scope.Pizza = {};
+        $scope.Pizza.descripcion_pizza = $stateParams.param1.descripcion_pizza;
+        $scope.Pizza.precio_pizza = $stateParams.param1.precio_pizza;
+        $scope.Pizza.foto_pizza = $stateParams.param1.foto_pizza;
+    } else {
+        $state.go('Abm.PizzaGrilla');
+    }
 
 });
