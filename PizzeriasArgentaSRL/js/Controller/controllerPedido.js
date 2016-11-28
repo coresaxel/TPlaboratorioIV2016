@@ -41,6 +41,7 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
     $scope.Guardar = function () {
         if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null && $scope.objeSeleccionadoUser == null)
             return;
+            
         $scope.Pedido.id_local = $scope.objeSeleccionadoLocal.id_local;
         $scope.Pedido.id_pizza = $scope.objeSeleccionadoPizza.id_pizza;
         $scope.Pedido.id_user = $scope.objeSeleccionadoUser.id_usuario;

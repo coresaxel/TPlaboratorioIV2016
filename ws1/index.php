@@ -5,6 +5,7 @@ require_once('./Clases/Local.php');
 require_once('./Clases/Pizza.php');
 require_once('./Clases/Promocion.php');
 require_once('./Clases/Pedido.php');
+require_once('./Clases/Rol.php');
 require './vendor/autoload.php';
 
 function Url(){
@@ -33,6 +34,10 @@ $app->post('/archivos', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/Rol', function ($request, $response, $args) {
+    return $response->write(json_encode(Rol::TraerTodosLosRoles()));
+});
+
 //***********************************USER********************************//
 /*  GET: Para consultar y leer recursos */
 $app->get('/', function ($request, $response, $args) {
@@ -55,6 +60,9 @@ $app->get('/User/{objeto}', function ($request, $response, $args) {
     return $response->write(json_encode($datos));
 });
 
+$app->get('/UserValidacionEmpleo/{objeto}', function ($request, $response, $args) {
+    return $response->write(json_encode(User::TraerTodasLasPersonasRolLocal($json_decode($args['objeto']))));
+});
 /* POST: Para crear recursos */
 $app->post('/User/{objeto}', function ($request, $response, $args) {
     
@@ -109,6 +117,13 @@ $app->put('/UserEstado/{objeto}', function ($request, $response, $args) {
         $persona->foto_persona=json_encode($arrayFoto); 
     }
     return $response->write(User::ModificarEstado($persona->id,$persona->estado));
+
+});
+
+// /* PUT: Para editar recursos */
+$app->put('/UserLocal/{objeto}', function ($request, $response, $args) {
+    $persona=json_decode($args['objeto']);
+    return $response->write(User::AsignarLocal($persona));
 
 });
 

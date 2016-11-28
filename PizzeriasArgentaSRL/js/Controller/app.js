@@ -1,9 +1,9 @@
-var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'satellizer', 
-'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns', 
-'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit',
-'ngMap','ui.bootstrap']);
+var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'satellizer',
+    'ui.grid', 'ui.grid.pagination', 'ui.grid.resizeColumns',
+    'ui.grid.selection', 'ui.grid.exporter', 'ui.grid.edit',
+    'ngMap', 'ui.bootstrap']);
 
-miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
+miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
     var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
     //var Url = 'http://labivaxel.esy.es/ws1/';
@@ -19,11 +19,11 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
             url: "/Pizzeria",
             abstract: true,
             templateUrl: "./Templates/Abstractas/pep.html",
-            cache: true
+            cache: false
         })
         .state(
         "Pizzeria.Principal", {
-            cache: true,
+            cache: false,
             url: "/",
             views:
             {
@@ -31,12 +31,12 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/User/presentacion.html",
-                    cache: true
+                    cache: false
                 }
             }
         })
@@ -83,19 +83,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/User/User.html",
                     controller: "controllerUserVer",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.UserGrilla", {
-            cache: true,
+            cache: false,
             url: "/Usuarios",
             views:
             {
@@ -103,19 +103,39 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
                     controller: "controllerUserGrilla",
-                    cache: true
+                    cache: false
+                }
+            }
+        })
+        .state(
+        "Abm.LocalEmpleo", {
+            cache: false,
+            url: "/LocalEmpleo",
+            views:
+            {
+                "contenido":
+                {
+                    templateUrl: "./Templates/User/UserBarra.html",
+                    controller: "controllerLogin",
+                    cache: false
+                },
+                "contenidoBody":
+                {
+                    templateUrl: "./Templates/User/Empleo.html",
+                    controller: "controllerUserEmpleo",
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.Local", {
-            cache: true,
+            cache: false,
             url: "/Local",
             params: {
                 param1: null
@@ -126,19 +146,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Local/AltaLocal.html",
                     controller: "controllerLocal",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.LocalGrilla", {
-            cache: true,
+            cache: false,
             url: "/Locales",
             views:
             {
@@ -146,13 +166,13 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
                     controller: "controllerLocales",
-                    cache: true
+                    cache: false
                 }
             }
         })
@@ -169,19 +189,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Local/Local.html",
                     controller: "controllerLocalVer",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.Pizza", {
-            cache: true,
+            cache: false,
             url: "/Pizza",
             params: {
                 param1: null
@@ -192,19 +212,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Pizza/AltaPizza.html",
                     controller: "controllerPizza",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.PizzaGrilla", {
-            cache: true,
+            cache: false,
             url: "/Pizzas",
             views:
             {
@@ -212,13 +232,13 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
                     controller: "controllerPizzas",
-                    cache: true
+                    cache: false
                 }
             }
         })
@@ -235,19 +255,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Pizza/Pizza.html",
                     controller: "controllerPizzaVer",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.Promocion", {
-            cache: true,
+            cache: false,
             url: "/Promocion",
             params: {
                 param1: null
@@ -258,19 +278,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Promocion/AltaPromocion.html",
                     controller: "controllerPromocion",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.PromocionGrilla", {
-            cache: true,
+            cache: false,
             url: "/Promociones",
             views:
             {
@@ -278,19 +298,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
                     controller: "controllerPromociones",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.Pedido", {
-            cache: true,
+            cache: false,
             url: "/Pedido",
             params: {
                 param1: null
@@ -301,19 +321,19 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Pedido/AltaPedido.html",
                     controller: "controllerPedido",
-                    cache: true
+                    cache: false
                 }
             }
         })
         .state(
         "Abm.PedidoGrilla", {
-            cache: true,
+            cache: false,
             url: "/Pedidos",
             views:
             {
@@ -321,13 +341,13 @@ miApp.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                 {
                     templateUrl: "./Templates/User/UserBarra.html",
                     controller: "controllerLogin",
-                    cache: true
+                    cache: false
                 },
                 "contenidoBody":
                 {
                     templateUrl: "./Templates/Grilla/Grilla.html",
                     controller: "controllerPedidos",
-                    cache: true
+                    cache: false
                 }
             }
         });

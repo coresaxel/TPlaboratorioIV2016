@@ -11,14 +11,14 @@
 			<input type="text" name="nombre" ng-model="persona.nombre_persona" placeholder="Ingrese Nombre" value="" required/>
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 			<input type="text" name="apellido" ng-model="persona.apellido_persona" placeholder="Ingrese Apellido" value="" required/>
-			<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*
-				</span>
-
+			<span id="lblApellido" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 			<input type="text" name="dni" ng-model="persona.dni_persona" placeholder="Ingrese DNI" value="" required/>
 			<span id="lblDni" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
-
 			<input type="password" ng-model="persona.pass_usuario" name="clave1" placeholder="Ingrese su Password" required />
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
+			<select ng-model="objeSeleccionadoRol" ng-options="rol as rol.descripcion_rol for rol in itemsSelectRol track by rol.id_rol">
+				<option value="Seleccionar">* Elige Rol *</option>
+			</select>
 			<div>
 				<ng-map center="current-location" on-click="placeMarker()">
 					<marker position="{{lat}},{{lng}}"></marker>

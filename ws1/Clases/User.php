@@ -7,6 +7,7 @@ class User
 	public $id_usuario;
 	public $nombre_usuario;
  	public $pass_usuario;
+	public $id_rol;
   	public $descripcion_rol;
   	public $nombre_persona;
 	public $apellido_persona;
@@ -17,6 +18,7 @@ class User
 	public $foto_persona;
 	public $nombre_local;
 	public $estado_usuario;
+	public $id_local;
 //--------------------------------------------------------------------------------//
 	public static function Login($usuario){
 		return User::Validar($usuario->name,$usuario->pass);
@@ -35,8 +37,19 @@ class User
 	public static function TraerUnaPersona($idParametro) 
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol left join local l ON u.id_local = l.id_local where id_usuario =:id");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.id_rol,r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,l.id_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol left right local l ON u.id_local = l.id_local where id_usuario =:id");
 		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
+		$consulta->execute();
+		$personaBuscada= $consulta->fetchObject('User');
+		return $personaBuscada;				
+	}
+
+	public static function TraerTodasLasPersonasRolLocal($id) 
+	{	
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.id_rol,r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,l.id_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol right join local l ON u.id_local = l.id_local where u.id_local =:local AND r.id_rol=:rol");
+		$consulta->bindValue(':local', $id->id_local, PDO::PARAM_INT);
+		$consulta->bindValue(':rol', $id->id_rol, PDO::PARAM_INT);
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('User');
 		return $personaBuscada;				
@@ -45,7 +58,7 @@ class User
 	public static function TraerTodasLasPersonas()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.id_rol,r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,l.id_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol left join local l ON u.id_local = l.id_local");
 		$consulta->execute();			
 		$arrPersonas= $consulta->fetchAll(PDO::FETCH_CLASS, "User");	
 		return $arrPersonas;
@@ -87,7 +100,7 @@ class User
 		VALUES (:userName,:userPass,:idRol,:name,:apellido,:dni,:dir,:lat,:long,:foto)");
 		$consulta->bindValue(':userName',$persona->nombre_usuario, PDO::PARAM_STR);
 		$consulta->bindValue(':userPass', $persona->pass_usuario, PDO::PARAM_STR);
-		$consulta->bindValue(':idRol', 3, PDO::PARAM_INT);
+		$consulta->bindValue(':idRol', $persona->id_rol, PDO::PARAM_INT);
 		$consulta->bindValue(':name', $persona->nombre_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':apellido', $persona->apellido_persona, PDO::PARAM_STR);
 		$consulta->bindValue(':dni', $persona->dni_persona, PDO::PARAM_STR);
@@ -106,6 +119,16 @@ class User
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
 		$consulta->bindValue(':id',$id, PDO::PARAM_INT);
 		$consulta->bindValue(':estado_usuario', $estado, PDO::PARAM_INT);
+		return $consulta->execute();
+	}
+
+	public static function AsignarLocal($id)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("update usuario set id_local=:local WHERE id_usuario=:user");
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+		$consulta->bindValue(':local',$id->id_local, PDO::PARAM_INT);
+		$consulta->bindValue(':user', $id->id_usuario, PDO::PARAM_INT);
 		return $consulta->execute();
 	}
 //--------------------------------------------------------------------------------//
