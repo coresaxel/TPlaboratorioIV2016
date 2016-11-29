@@ -7,7 +7,7 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
     } else {
         var Url = fRutas.RutasWeb;
     }
-
+    $scope.Rol = fsUser.ObtenerRol();
     $scope.SubirdorArchivos = new FileUploader({ url: Url + 'archivos' });
     $scope.Accion = "Nuevo Pedido";
     $scope.Pedido = {};
@@ -41,7 +41,10 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
     $scope.Guardar = function () {
         if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null && $scope.objeSeleccionadoUser == null)
             return;
-            
+
+        if ($scope.Pedido.fecha_entrega < new Date().addDays(2) && $scope.Pedido.fecha_entrega > new Date().addDays(5))
+            return;
+
         $scope.Pedido.id_local = $scope.objeSeleccionadoLocal.id_local;
         $scope.Pedido.id_pizza = $scope.objeSeleccionadoPizza.id_pizza;
         $scope.Pedido.id_user = $scope.objeSeleccionadoUser.id_usuario;
@@ -59,22 +62,38 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
+    $scope.Rol = fsUser.ObtenerRol();
+
     $scope.titulo = "Pedido";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
-    $scope.gridOptions.columnDefs = columnDefs();
+    if ($scope.Rol != 'ENCARGADO') {
+        $scope.gridOptions.columnDefs = columnDefs();
+    } else {
+        $scope.gridOptions.columnDefs = columnDefsEncargado();
+    }
     $scope.gridOptions.enableFiltering = false;
 
     fsUser.TraerTodos('Pedido')
         .then(function (respuesta) {
-            $scope.gridOptions.data = respuesta;
+            var auxiliar = [];
+            respuesta.forEach(function (item) {
+                if ($scope.Rol == "CLIENTE" && item.id_user == fsUser.ObtenerId()) {
+                    auxiliar.push(item);
+                } else {
+                    if ($scope.Rol != "CLIENTE") {
+                        auxiliar.push(item);
+                    }
+                }
+            })
+            $scope.gridOptions.data = auxiliar;
         }, function (error) {
             console.info(error);
         });
 
 
-    function columnDefs() {
+    function columnDefsEncargado() {
         return [
             { field: 'nombre_usuario', name: 'Nombre Usuario' },
             { field: 'descripcion_pizza', name: 'Pizza' },
@@ -94,13 +113,29 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
             },
 
             {
-                field: 'id_pedido', name: 'Cerrar', cellTemplate: "<button class=\"btn btn-warning\" "
+                field: 'id_pedido', name: 'Cerrar', cellTemplate: "<button  class=\"btn btn-warning\" "
                 + "ng-click=\"grid.appScope.CerrarPedido(row.entity.id_pedido)\"><span "
                 + "class=\"glyphicon glyphicon-remove-circle\"></span>Cerrar</button>"
             }
         ];
     }
 
+
+    function columnDefs() {
+        return [
+            { field: 'nombre_usuario', name: 'Nombre Usuario' },
+            { field: 'descripcion_pizza', name: 'Pizza' },
+            { field: 'nombre_local', name: 'Local' },
+            { field: 'cantidad_pizza', name: 'Cantidad' },
+            { field: 'fecha_entrega', name: 'Fecha' },
+            { field: 'estado_pedido', cellTemplate: '<div ng-if="row.entity.estado_pedido == 0">Pendiente</div/><div ng-if="row.entity.estado_pedido == 1">Finalizado</div/>', name: 'Estado' },
+            {
+                field: 'id_pedido', name: 'Mapa', cellTemplate: "<button class=\"btn btn-info\" "
+                + "ng-click=\"grid.appScope.MostrarMapa(row.entity.id_user,row.entity.id_local)\"><span "
+                + "class=\"glyphicon glyphicon-remove-circle\"></span>Mostrar</button>"
+            }
+        ];
+    }
     $scope.Borrar = function (id) {
         fsUser.EliminarObj('Pedido', id)
             .then(function (respuesta) {
@@ -133,22 +168,22 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
             });
     }
     $scope.MostrarMapa = function (idUser, idLocal) {
-        var local = fsUser.TraerUnObj('Local',idLocal)
+        var local = fsUser.TraerUnObj('Local', idLocal)
             .then(function (respuesta) {
                 local = respuesta;
-                $scope.Incio = {lat: local.latitud_local, lng: local.longitud_local}
+                $scope.Incio = { lat: local.latitud_local, lng: local.longitud_local }
             }, function (error) {
                 console.info(error);
             });
 
-        var user = fsUser.TraerUnObj('User',idUser)
+        var user = fsUser.TraerUnObj('User', idUser)
             .then(function (respuesta) {
                 user = respuesta;
-                $scope.Final = {lat: user.latitud_persona, lng: user.longitud_persona}
+                $scope.Final = { lat: user.latitud_persona, lng: user.longitud_persona }
                 console.info($scope.Final)
             }, function (error) {
                 console.info(error);
             });
-            
+
     }
 });

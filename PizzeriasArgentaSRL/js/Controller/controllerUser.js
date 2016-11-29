@@ -2,6 +2,7 @@ miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser, $loc
 
     if ($auth.isAuthenticated()) {
         $scope.UserName = ($auth.getPayload()).usuario[0].nombre_usuario;
+        $scope.Rol = fsUser.ObtenerRol();
     }
 
 
@@ -10,21 +11,19 @@ miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser, $loc
             case 'Admin':
                 $scope.FormIngreso.a_user = "AXELCORES";
                 $scope.FormIngreso.a_pass = "A1";
-
                 break;
             case 'Empleado':
                 $scope.FormIngreso.a_user = "EmpleadoArgento";
                 $scope.FormIngreso.a_pass = "1234";
                 break;
             case 'Cliente':
-                $scope.FormIngreso.a_user = "PepeArgento";
+                $scope.FormIngreso.a_user = "Dardo";
                 $scope.FormIngreso.a_pass = "1234";
                 break;
             case 'Encargado':
-                $scope.FormIngreso.a_user = "PepeArgento";
+                $scope.FormIngreso.a_user = "Axel1";
                 $scope.FormIngreso.a_pass = "1234";
                 break;
-
         }
     }
 
@@ -61,16 +60,31 @@ miApp.controller("controllerUser", function($scope, $state, $stateParams, FileUp
     // if (!fsUser.VerificarLogin())
     //     $state.go('Pizzeria.Principal');
 
+    $scope.Rol = fsUser.ObtenerRol();
     if ($location.$$host == "localhost") {
         var Url = fRutas.RutaDesarrollo;
     } else {
         var Url = fRutas.RutasWeb;
     }
-
     $scope.pizza = fsUser.TraerTodos('Rol')
         .then(function(respuesta) {
             $scope.itemsSelectRol = {};
-            $scope.itemsSelectRol = respuesta;
+            var aux = [{}];
+            respuesta.forEach(function(item) {
+                if ($scope.Rol == null && (item.descripcion_rol == "CLIENTE")) {
+                    aux.push(item);
+                }
+                if ($scope.Rol == 'ADMINISTRADOR' && (item.descripcion_rol == "CLIENTE" || item.descripcion_rol == "EMPLEADO" || item.descripcion_rol == "ENCARGADO" || item.descripcion_rol == "ADMINISTRADOR")) {
+                    aux.push(item);
+                }
+                if ($scope.Rol == 'EMPLEADO' && (item.descripcion_rol == "CLIENTE")) {
+                    aux.push(item);
+                }
+                if ($scope.Rol == 'ENCARGADO' && (item.descripcion_rol == "CLIENTE" || item.descripcion_rol == "EMPLEADO")) {
+                    aux.push(item);
+                }
+            })
+            $scope.itemsSelectRol = aux;
         }, function(error) {
             console.info(error);
         });
@@ -174,11 +188,17 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser,
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
+    $scope.Rol = fsUser.ObtenerRol();
+
     $scope.titulo = "Usuarios";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
-    $scope.gridOptions.columnDefs = columnDefs();
+    if ($scope.Rol != 'ENCARGADO') {
+        $scope.gridOptions.columnDefs = columnDefs();
+    } else {
+        $scope.gridOptions.columnDefs = columnDefsEncargado();
+    }
     $scope.gridOptions.enableFiltering = true;
 
     fsUser.TraerTodos('User')
@@ -189,7 +209,7 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser,
             console.info(error);
         });
 
-    function columnDefs() {
+    function columnDefsEncargado() {
         return [
             { field: 'nombre_usuario', name: 'Usuario', enableFiltering: false },
             { field: 'nombre_persona', name: 'Nombre', enableFiltering: false },
@@ -218,6 +238,32 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser,
         ];
     }
 
+    function columnDefs() {
+        return [
+            { field: 'nombre_usuario', name: 'Usuario', enableFiltering: false },
+            { field: 'nombre_persona', name: 'Nombre', enableFiltering: false },
+            { field: 'apellido_persona', name: 'Apellido', enableFiltering: false },
+            { field: 'direccion_persona', name: 'Dirección', enableFiltering: false },
+            {
+                field: 'descripcion_rol', name: 'Tipo',
+                filter: {
+                    type: uiGridConstants.filter.SELECT,
+                    selectOptions: [
+                        { value: 'ADMINISTRADOR', label: 'ADMINISTRADOR' },
+                        { value: 'CLIENTE', label: 'CLIENTE' },
+                        { value: 'EMPLEADO', label: 'EMPLEADO' },
+                        { value: 'ENCARGADO', label: 'ENCARGADO' }
+                    ]
+                },
+                cellFilter: 'rol'
+            },
+            { field: 'dni_persona', name: 'Dni', enableFiltering: false },
+            { field: 'nombre_local', name: 'Trabajo', enableFiltering: false },
+            { field: 'estado_usuario', name: 'Estado', enableFiltering: false, cellTemplate: '<div ng-if="row.entity.estado_usuario == 0">Inactivo</div/><div ng-if="row.entity.estado_usuario == 1">Activo</div/>' },
+            { field: 'id_usuario', name: 'Perfil', enableFiltering: false, cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" }
+        ];
+    }
+
     $scope.Borrar = function(id) {
         fsUser.EliminarObj('User', id)
             .then(function(respuesta) {
@@ -235,7 +281,6 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser,
 
     }
 
-
     $scope.Modificar = function(id) {
         fsUser.TraerUnObj('User', id)
             .then(function(respuesta) {
@@ -245,6 +290,7 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser,
                 console.info(error);
             });
     };
+
     $scope.Ver = function(id) {
         fsUser.TraerUnObj('User', id)
             .then(function(respuesta) {
@@ -280,7 +326,7 @@ miApp.controller("controllerUserGrilla", function($scope, $state, $http, fsUser,
 });
 
 miApp.controller("controllerUserVer", function($scope, $state, $stateParams, fsUser) {
-    if (!fsUser.VerificarLogin())
+    if (!fsUser.VerificarLogin() && fsUser.ObtenerRol() != "ADMINISTRADOR")
         $state.go('Pizzeria.Principal');
 
     if ($stateParams.param1 != null) {
@@ -302,10 +348,10 @@ miApp.controller("controllerUserVer", function($scope, $state, $stateParams, fsU
 });
 
 miApp.controller("controllerUserEmpleo", function($scope, $state, $http, fsUser) {
-    if (!fsUser.VerificarLogin())
+    if (!fsUser.VerificarLogin() && fsUser.ObtenerRol() != "ADMINISTRADOR")
         $state.go('Pizzeria.Principal');
     $scope.Titulo = "Asignación de Personal";
-
+    $scope.Rol = fsUser.ObtenerRol();
     $scope.local = fsUser.TraerTodos('Local')
         .then(function(respuesta) {
             $scope.itemsSelectLocal = {};

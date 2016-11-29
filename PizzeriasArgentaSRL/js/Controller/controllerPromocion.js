@@ -49,16 +49,22 @@ miApp.controller("controllerPromocion", function ($scope, $state, $stateParams, 
     }
 });
 
-miApp.controller("controllerPromociones", function ($scope, $state, $http, fsUser) {
+miApp.controller("controllerPromociones", function ($scope, $state, $http, fsUser, uiGridConstants) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
+
+    $scope.Rol = fsUser.ObtenerRol();
 
     $scope.titulo = "Promocion";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
-    $scope.gridOptions.columnDefs = columnDefs();
-    $scope.gridOptions.enableFiltering = false;
+    if ($scope.Rol != 'ENCARGADO') {
+        $scope.gridOptions.columnDefs = columnDefs();
+    } else {
+        $scope.gridOptions.columnDefs = columnDefsEncargado();
+    }
+    $scope.gridOptions.enableFiltering = true;
 
     fsUser.TraerTodos('Promocion')
         .then(function (respuesta) {
@@ -67,17 +73,34 @@ miApp.controller("controllerPromociones", function ($scope, $state, $http, fsUse
             console.info(error);
         });
 
-
-    function columnDefs() {
+    $scope.local = fsUser.TraerTodos('Local')
+        .then(function (respuesta) {
+            $scope.itemsSelectLocal = {};
+            auxiliar = [{}]
+            respuesta.forEach(function (item) {
+                auxiliar.push({ value: item.descripcion_pizza, label: item.descripcion_pizza });
+            })
+            $scope.itemsSelectLocal = auxiliar;
+        }, function (error) {
+            console.info(error);
+        });
+    function columnDefsEncargado() {
         return [
-            { field: 'descripcion_pizza', name: 'Nombre' },
-            { field: 'precio_promo', name: 'Precio' },
-            { field: 'nombre_local', name: 'Local' },
+            { field: 'descripcion_pizza', name: 'Nombre', enableFiltering: false },
+            { field: 'precio_promo', name: 'Precio', enableFiltering: false },
+            { field: 'nombre_local', name: 'Local', enableFiltering: true },
             {
-                field: 'id_promocion', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" "
+                field: 'id_promocion', name: 'Borrar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-danger\" "
                 + "ng-click=\"grid.appScope.Borrar(row.entity.id_promo)\"><span "
                 + "class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>"
             }
+        ];
+    }
+    function columnDefs() {
+        return [
+            { field: 'descripcion_pizza', name: 'Nombre', enableFiltering: false },
+            { field: 'precio_promo', name: 'Precio', enableFiltering: false },
+            { field: 'nombre_local', name: 'Local', enableFiltering: true }
         ];
     }
 

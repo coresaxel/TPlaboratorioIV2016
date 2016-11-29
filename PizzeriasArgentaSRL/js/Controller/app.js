@@ -350,6 +350,25 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                     cache: false
                 }
             }
+        }).state(
+        "Abm.Acerca", {
+            cache: false,
+            url: "/About",
+            views:
+            {
+                "contenido":
+                {
+                    templateUrl: "./Templates/User/UserBarra.html",
+                    controller: "controllerLogin",
+                    cache: false
+                },
+                "contenidoBody":
+                {
+                    templateUrl: "./Templates/Informacion/Info.html",
+                    controller: "controllerPedido",
+                    cache: false
+                }
+            }
         });
 
 

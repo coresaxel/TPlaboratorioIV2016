@@ -67,11 +67,17 @@ miApp.controller("controllerPizzas", function ($scope, $state, $http, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
 
+    $scope.Rol = fsUser.ObtenerRol();
+
     $scope.titulo = "Pizzas";
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
-    $scope.gridOptions.columnDefs = columnDefs();
+    if ($scope.Rol != 'ENCARGADO') {
+        $scope.gridOptions.columnDefs = columnDefs();
+    } else {
+        $scope.gridOptions.columnDefs = columnDefsEncargado();
+    }
     $scope.gridOptions.enableFiltering = false;
 
     fsUser.TraerTodos('Pizza')
@@ -83,13 +89,21 @@ miApp.controller("controllerPizzas", function ($scope, $state, $http, fsUser) {
         });
 
 
-    function columnDefs() {
+    function columnDefsEncargado() {
         return [
             { field: 'descripcion_pizza', name: 'Nombre' },
             { field: 'precio_pizza', name: 'Precio' },
             { field: 'id_pizza', name: 'Descripción', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" },
             { field: 'id_pizza', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
             { field: 'id_pizza', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" }
+        ];
+    }
+
+    function columnDefs() {
+        return [
+            { field: 'descripcion_pizza', name: 'Nombre' },
+            { field: 'precio_pizza', name: 'Precio' },
+            { field: 'id_pizza', name: 'Descripción', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_pizza)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" }
         ];
     }
 
@@ -137,7 +151,7 @@ miApp.controller("controllerPizzas", function ($scope, $state, $http, fsUser) {
 miApp.controller("controllerPizzaVer", function ($scope, $state, $stateParams, fsUser) {
     if (!fsUser.VerificarLogin())
         $state.go('Pizzeria.Principal');
-console.info($stateParams.param1)
+    console.info($stateParams.param1)
     if ($stateParams.param1 != null) {
         $scope.Pizza = {};
         $scope.Pizza.descripcion_pizza = $stateParams.param1.descripcion_pizza;

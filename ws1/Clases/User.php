@@ -37,7 +37,7 @@ class User
 	public static function TraerUnaPersona($idParametro) 
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.id_rol,r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,l.id_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol left right local l ON u.id_local = l.id_local where id_usuario =:id");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select u.id_usuario,u.nombre_usuario, u.pass_usuario, r.id_rol,r.descripcion_rol, u.nombre_persona,u.apellido_persona, u.dni_persona, u.direccion_persona, u.latitud_persona, u.longitud_persona, u.foto_persona,l.nombre_local,l.id_local,u.estado_usuario from usuario u join rol r on u.id_rol = r.id_rol left join local l ON u.id_local = l.id_local where id_usuario =:id");
 		$consulta->bindValue(':id', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('User');

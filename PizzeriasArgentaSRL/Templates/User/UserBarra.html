@@ -7,64 +7,64 @@
 						<a><i class="glyphicon glyphicon-user"></i>{{UserName}}</a>
 					</li>
 					<li><a ui-sref="Pizzeria.Principal">Inicio</a></li>
-					<li><a>Usuarios</a>
+					<li ng-if="Rol != 'CLIENTE'"><a>Usuarios</a>
 						<ul>
-							<li><a ui-sref="Abm.User">Nuevo Usuario</a></li>
-							<li><a ui-sref="Abm.UserGrilla">Usuarios</a></li>
+							<li ng-if="Rol != ''"><a ui-sref="Abm.User">Nuevo Usuario</a></li>
+							<li ng-if="Rol == 'EMPLEADO' || Rol == 'ENCARGADO'"><a ui-sref="Abm.UserGrilla">Usuarios</a></li>
 						</ul>
 					</li>
-					<li><a>Locales</a>
+					<li ng-if="Rol != 'EMPLEADO'" ><a>Locales</a>
 						<ul>
-							<li><a ui-sref="Abm.Local">Nueva Sucursal</a></li>
-							<li><a ui-sref="Abm.LocalGrilla">Sucursales</a></li>
-							<li><a ui-sref="Abm.LocalEmpleo">Empleados</a></li>
+							<li ng-if="Rol=='ADMINISTRADOR'"><a ui-sref="Abm.Local">Nueva Sucursal</a></li>
+							<li ng-if="Rol == 'ENCARGADO' || Rol == 'CLIENTE'"><a ui-sref="Abm.LocalGrilla">Sucursales</a></li>
+							<li ng-if="Rol == 'ENCARGADO'"><a ui-sref="Abm.LocalEmpleo">Empleados</a></li>
 						</ul>
 					</li>
-					<li><a>Pizzas</a>
+					<li ng-if="Rol != 'ADMINISTRADOR'"><a>Productos</a>
 						<ul>
-							<li><a ui-sref="Abm.Pizza">Nueva Pizza</a></li>
-							<li><a ui-sref="Abm.PizzaGrilla">Pizzas</a></li>
+							<li ng-if="Rol == 'EMPLEADO' || Rol == 'ENCARGADO'"><a ui-sref="Abm.Pizza">Nueva Pizza</a></li>
+							<li ng-if="Rol != 'ADMINISTRADOR'"><a ui-sref="Abm.PizzaGrilla">Pizzas</a></li>
 						</ul>
 					</li>
-					<li><a>Promociones</a>
+					<li ng-if="Rol != 'ADMINISTRADOR'"><a>Promociones</a>
 						<ul>
-							<li><a ui-sref="Abm.Promocion">Nueva Promoción</a></li>
-							<li><a ui-sref="Abm.PromocionGrilla">Promociones</a></li>
+							<li ng-if="Rol == 'EMPLEADO' || Rol == 'ENCARGADO'"><a ui-sref="Abm.Promocion">Nueva Promoción</a></li>
+							<li ng-if="Rol != 'ADMINISTRADOR'"><a ui-sref="Abm.PromocionGrilla">Promociones</a></li>
 						</ul>
 					</li>
-					<li><a>Pedidos</a>
+					<li ng-if="Rol != 'ADMINISTRADOR'"><a>Pedidos</a>
 						<ul>
-							<li><a ui-sref="Abm.Pedido">Nuevo</a></li>
-							<li><a ui-sref="Abm.PedidoGrilla">Mis Pedidos</a></li>
+							<li ng-if="Rol != 'ADMINISTRADOR'"><a ui-sref="Abm.Pedido">Nuevo</a></li>
+							<li ng-if="Rol != 'ADMINISTRADOR'"><a ui-sref="Abm.PedidoGrilla">Mis Pedidos</a></li>
 						</ul>
 					</li>
-					<li><a>Acerca de</a>
+					<li><a ui-sref="Abm.Acerca">Acerca de</a>
 					</li>
 					<li><a ng-click="Logout()">Logout</a></li>
 				</ul>
 			</div>
 			</body>
-			<button type="submit" ng-click="Logout()" >Logout</button>
+			<button type="submit" ng-click="Logout()">Logout</button>
 		</div>
 		<div id="butons" class="navbar-form navbar-nav" ng-if="!UserName">
 			<div class="input-group">
-				<button type="submit" ng-click="Test('Admin')" >Admin</button>
-				<button type="submit" ng-click="Test('Encargado')" >Encargado</button>
-				<button type="submit" ng-click="Test('Empleado')" >Empleado</button>
-				<button type="submit" ng-click="Test('Cliente')" >Cliente</button>
+				<button type="submit" ng-click="Test('Admin')">Admin</button>
+				<button type="submit" ng-click="Test('Encargado')">Encargado</button>
+				<button type="submit" ng-click="Test('Empleado')">Empleado</button>
+				<button type="submit" ng-click="Test('Cliente')">Cliente</button>
 			</div>
 		</div>
 		<form id="FormIngreso" name="FormIngreso">
 			<div id="login" class="navbar-form navbar-nav-right" ng-if="!UserName">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input id="user" name="user" type="text"  ng-model="FormIngreso.a_user" required="" placeholder="User">
+					<input id="user" name="user" type="text" ng-model="FormIngreso.a_user" required="" placeholder="User">
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					<input id="password" name="password" type="password"  required="" ng-model="FormIngreso.a_pass" placeholder="Password">
+					<input id="password" name="password" type="password" required="" ng-model="FormIngreso.a_pass" placeholder="Password">
 				</div>
-				<button type="submit" ng-click="Login()" ng-disabled="FormIngreso.$invalid" >Login</button>
+				<button type="submit" ng-click="Login()" ng-disabled="FormIngreso.$invalid">Login</button>
 		</form>
 		</div>
 	</div>
