@@ -231,10 +231,9 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
             { field: 'dni_persona', name: 'Dni', enableFiltering: false },
             { field: 'nombre_local', name: 'Trabajo', enableFiltering: false },
             { field: 'estado_usuario', name: 'Estado', enableFiltering: false, cellTemplate: '<div ng-if="row.entity.estado_usuario == 0">Inactivo</div/><div ng-if="row.entity.estado_usuario == 1">Activo</div/>' },
-            { field: 'id_usuario', name: 'Perfil', enableFiltering: false, cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" },
-            { field: 'id_usuario', name: 'Borrar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
-            { field: 'id_usuario', name: 'Editar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" },
-            { field: 'id_usuario', name: 'Inhabilitar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Inhabilitar(row.entity.id_usuario,row.entity.estado_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span>Inhabilitar</button>" }
+            { field: 'id_usuario', name: 'Perfil', enableFiltering: false, cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-eye-open\"></span> Ver</button>" },
+            { field: 'id_usuario', name: 'Borrar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove\"></span> Borrar</button>" },
+            { field: 'id_usuario', name: 'Editar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-edit\"></span> Modificar</button>" },
         ];
     }
 
@@ -260,7 +259,7 @@ miApp.controller("controllerUserGrilla", function ($scope, $state, $http, fsUser
             { field: 'dni_persona', name: 'Dni', enableFiltering: false },
             { field: 'nombre_local', name: 'Trabajo', enableFiltering: false },
             { field: 'estado_usuario', name: 'Estado', enableFiltering: false, cellTemplate: '<div ng-if="row.entity.estado_usuario == 0">Inactivo</div/><div ng-if="row.entity.estado_usuario == 1">Activo</div/>' },
-            { field: 'id_usuario', name: 'Perfil', enableFiltering: false, cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" }
+            { field: 'id_usuario', name: 'Perfil', enableFiltering: false, cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_usuario)\"><span class=\"glyphicon glyphicon-eye-open\"></span> Ver</button>" }
         ];
     }
 

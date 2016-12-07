@@ -1,10 +1,10 @@
 <nav class="navbar navbar-light bg-faded">
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		<div id="signin" class="navbar-form navbar" ng-if="UserName">
+		<div id="signin" class="navbar-form navbar" ng-if="UserName" >
 			<div id="header">
-				<ul class="nav">
+				<ul class="nav" >
 					<li>
-						<a><i class="glyphicon glyphicon-user"></i>{{UserName}}</a>
+						<a><i class="glyphicon glyphicon-user"></i> {{UserName}}</a>
 					</li>
 					<li><a ui-sref="Pizzeria.Principal">Inicio</a></li>
 					<li ng-if="Rol != 'CLIENTE'"><a>Usuarios</a>
@@ -40,31 +40,30 @@
 					</li>
 					<li><a ui-sref="Abm.Acerca">Acerca de</a>
 					</li>
-					<li><a ng-click="Logout()">Logout</a></li>
+					<li><a ng-click="Logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 				</ul>
 			</div>
 			</body>
-			<button type="submit" ng-click="Logout()">Logout</button>
 		</div>
 		<div id="butons" class="navbar-form navbar-nav" ng-if="!UserName">
 			<div class="input-group">
-				<button type="submit" ng-click="Test('Admin')">Admin</button>
-				<button type="submit" ng-click="Test('Encargado')">Encargado</button>
-				<button type="submit" ng-click="Test('Empleado')">Empleado</button>
-				<button type="submit" ng-click="Test('Cliente')">Cliente</button>
+				<button type="submit" class="botones" ng-click="Test('Admin')" >Admin</button>
+				<button type="submit" class="botones" ng-click="Test('Encargado')">Encargado</button>
+				<button type="submit" class="botones" ng-click="Test('Empleado')">Empleado</button>
+				<button type="submit" class="botones" ng-click="Test('Cliente')">Cliente</button>
 			</div>
 		</div>
 		<form id="FormIngreso" name="FormIngreso">
 			<div id="login" class="navbar-form navbar-nav-right" ng-if="!UserName">
 				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input id="user" name="user" type="text" ng-model="FormIngreso.a_user" required="" placeholder="User">
+					<span class="input-group-addon" style="background-color: black;color: white;  height:20px;"><i class="glyphicon glyphicon-user"></i></span>
+					<input id="user" name="user" style="background-color: black;color: white;  height:30px;"  type="text" ng-model="FormIngreso.a_user" required="" placeholder="User">
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-					<input id="password" name="password" type="password" required="" ng-model="FormIngreso.a_pass" placeholder="Password">
+					<span class="input-group-addon" style="background-color: black;color: white;  height:20px;"><i class="glyphicon glyphicon-lock"></i></span>
+					<input id="password" name="password" style="background-color: black;color: white;  height:30px;" type="password" required="" ng-model="FormIngreso.a_pass" placeholder="Password">
 				</div>
-				<button type="submit" ng-click="Login()" ng-disabled="FormIngreso.$invalid">Login</button>
+				<button ng-click="Login()" class="botones" ng-disabled="FormIngreso.$invalid"><span class="glyphicon glyphicon-log-in"></span> Login</button>
 		</form>
 		</div>
 	</div>

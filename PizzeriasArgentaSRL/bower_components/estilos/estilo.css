@@ -36,18 +36,18 @@ h1{
     bottom: 0;
 }
 
-
+.botones{
+  height:40px;
+  background-color: black;
+  color: white;
+}
 .carrousel{
     width: 90%;
     height: 60%;
+    margin: auto;
+
 }
 
-input.ng-invalid {
-    background-color:red;
-}
-input.ng-valid {
-    background-color:white;
-}
 
 .myGrid {
     width: 90%;
@@ -74,13 +74,16 @@ input.ng-valid {
 			
 			ul, ol {
 				list-style:none;
+        margin: auto;
 			}
 			
 			.nav > li {
+        margin: auto; 
 				float:left;
 			}
 			
 			.nav li a {
+        margin: auto;
 				background-color:#000;
 				color:#fff;
 				text-decoration:none;
@@ -89,24 +92,32 @@ input.ng-valid {
 			}
 			
 			.nav li a:hover {
-				background-color:#434343;
+        margin: auto;
+				background-color:#fff;
+        color: black;
 			}
 			
 			.nav li ul {
+        margin: auto;
 				display:none;
 				position:absolute;
 				min-width:140px;
 			}
-			
+						
 			.nav li:hover > ul {
+        margin: auto;
 				display:block;
+        background-color:#fff;
+        color: black;
 			}
 			
 			.nav li ul li {
+        margin: auto;
 				position:relative;
 			}
 			
 			.nav li ul li ul {
+        margin: auto;
 				right:-140px;
 				top:0px;
 			}

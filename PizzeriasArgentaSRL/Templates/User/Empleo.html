@@ -11,7 +11,7 @@
         <select ng-model="objeSeleccionadoLocal" ng-options="pizza as pizza.nombre_local for pizza in itemsSelectLocal track by pizza.id_local">
             <option value="">* Elige Un Local *</option>
         </select>
-        <a class="btn btn-block" name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-save"></span>Guardar</a>
+        <a class="btn btn-block" name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-record"></span>Guardar</a>
         <a class="btn btn-block" ui-sref="Abm.UserGrilla"><span class="glyphicon glyphicon-save"></span>Volver</a>
     </form>
 </div>

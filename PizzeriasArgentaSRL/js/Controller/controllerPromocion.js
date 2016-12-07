@@ -92,7 +92,7 @@ miApp.controller("controllerPromociones", function ($scope, $state, $http, fsUse
             {
                 field: 'id_promocion', name: 'Borrar', enableFiltering: false, cellTemplate: "<button class=\"btn btn-danger\" "
                 + "ng-click=\"grid.appScope.Borrar(row.entity.id_promo)\"><span "
-                + "class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>"
+                + "class=\"glyphicon glyphicon-remove\"></span> Borrar</button>"
             }
         ];
     }

@@ -104,18 +104,18 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
             {
                 field: 'id_pedido', name: 'Mapa', cellTemplate: "<button class=\"btn btn-info\" "
                 + "ng-click=\"grid.appScope.MostrarMapa(row.entity.id_user,row.entity.id_local)\"><span "
-                + "class=\"glyphicon glyphicon-remove-circle\"></span>Mostrar</button>"
+                + "class=\"glyphicon glyphicon-eye-open\"></span> Mostrar</button>"
             },
             {
                 field: 'id_pedido', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" "
                 + "ng-click=\"grid.appScope.Borrar(row.entity.id_pedido)\"><span "
-                + "class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>"
+                + "class=\"glyphicon glyphicon-remove\"></span> Borrar</button>"
             },
 
             {
                 field: 'id_pedido', name: 'Cerrar', cellTemplate: "<button  class=\"btn btn-warning\" "
                 + "ng-click=\"grid.appScope.CerrarPedido(row.entity.id_pedido)\"><span "
-                + "class=\"glyphicon glyphicon-remove-circle\"></span>Cerrar</button>"
+                + "class=\"glyphicon glyphicon-remove-circle\"></span> Cerrar</button>"
             }
         ];
     }
@@ -132,7 +132,7 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
             {
                 field: 'id_pedido', name: 'Mapa', cellTemplate: "<button class=\"btn btn-info\" "
                 + "ng-click=\"grid.appScope.MostrarMapa(row.entity.id_user,row.entity.id_local)\"><span "
-                + "class=\"glyphicon glyphicon-remove-circle\"></span>Mostrar</button>"
+                + "class=\"glyphicon glyphicon-eye-open\"></span> Mostrar</button>"
             }
         ];
     }

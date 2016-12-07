@@ -107,7 +107,7 @@ miApp.controller("controllerLocales", function ($scope, $state, $http, fsUser) {
         return [
             { field: 'nombre_local', name: 'Nombre' },
             { field: 'direccion_local', name: 'Direccion' },
-            { field: 'id_local', name: 'Detalles', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_local)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" }
+            { field: 'id_local', name: 'Detalles', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_local)\"><span class=\"glyphicon glyphicon-eye-open\"></span> Ver</button>" }
         ];
     }
 
@@ -115,9 +115,9 @@ miApp.controller("controllerLocales", function ($scope, $state, $http, fsUser) {
         return [
             { field: 'nombre_local', name: 'Nombre' },
             { field: 'direccion_local', name: 'Direccion' },
-            { field: 'id_local', name: 'Detalles', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_local)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Ver</button>" },
-            { field: 'id_local', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_local)\"><span class=\"glyphicon glyphicon-remove-circle\"></span>Borrar</button>" },
-            { field: 'id_local', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_local)\"><span class=\"glyphicon glyphicon-edit\"></span>Modificar</button>" }
+            { field: 'id_local', name: 'Detalles', cellTemplate: "<button class=\"btn btn\" ng-click=\"grid.appScope.Ver(row.entity.id_local)\"><span class=\"glyphicon glyphicon-eye-open\"></span> Ver</button>" },
+            { field: 'id_local', name: 'Borrar', cellTemplate: "<button class=\"btn btn-danger\" ng-click=\"grid.appScope.Borrar(row.entity.id_local)\"><span class=\"glyphicon glyphicon-remove\"></span> Borrar</button>" },
+            { field: 'id_local', name: 'Editar', cellTemplate: "<button class=\"btn btn-warning\" ng-click=\"grid.appScope.Modificar(row.entity.id_local)\"><span class=\"glyphicon glyphicon-edit\"></span> Modificar</button>" }
         ];
     }
 
