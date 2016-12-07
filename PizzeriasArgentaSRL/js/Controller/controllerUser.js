@@ -37,8 +37,10 @@ miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser, $loc
                 if ($auth.isAuthenticated()) {
                     $scope.FormIngreso.UserName = $scope.FormIngreso.a_user;
                     $state.reload()
-
+                } else {
+                    alert("Los datos ingresados son incorrectos!");
                 }
+
             })
             .catch(function(response) {
                 console.info("error", response);
