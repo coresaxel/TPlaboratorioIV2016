@@ -1,15 +1,64 @@
-/*estilos para las validaciones*/
+h1{
+  text-align: center;
+}
+
+.ui-grid-top-panel{
+  width: 92%;
+  height: 30%;
+}
+.ui-grid-cell:nth-child(4) {
+  padding: 0 4px 0 0;
+}
+
+.ui-grid-draggable-row {
+    height: 30px;
+}
+
+.ui-grid-draggable-row-over {
+  position: relative;
+    color: #AAA;
+}
+
+.ui-grid-draggable-row-over:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px dashed #AAA;
+}
+
+.ui-grid-draggable-row-over--above:before {
+    top: 0;
+}
+
+.ui-grid-draggable-row-over--below:before {
+    bottom: 0;
+}
+
+
+.carrousel{
+    width: 90%;
+    height: 60%;
+}
 
 input.ng-invalid {
     background-color:red;
 }
 input.ng-valid {
-    background-color:green;
+    background-color:white;
 }
 
 .myGrid {
-    width: 1080px;
-    height: 200px;
+    width: 90%;
+    height: 60%;
+    margin: auto;
+  }
+
+  ng-map{
+  height:40%;
+  width: 40%;
+  margin: auto;
   }
 			
 			* {
@@ -61,46 +110,6 @@ input.ng-valid {
 				right:-140px;
 				top:0px;
 			}
-			
-/*
-
-
-
-CSS Classes
-AngularJS adds CSS classes to forms and input fields depending on their states.
-
-The following classes are added to, or removed from, input fields:
-
-ng-untouched The field has not been touched yet
-ng-touched The field has been touched
-ng-pristine The field has not been  modified yet
-ng-dirty The field has been modified
-ng-valid The field content is valid
-ng-invalid The field content is not valid
-ng-valid-key One key for each validation. Example: ng-valid-required, useful when there are more than one thing that must be validated
-ng-invalid-key Example: ng-invalid-required
-The following classes are added to, or removed from, forms:
-
-ng-pristine No fields has not been modified yet
-ng-dirty One or more fields has been modified
-ng-valid The form content is valid
-ng-invalid The form content is not valid
-ng-valid-key One key for each validation. Example: ng-valid-required, useful when there are more than one thing that must be validated
-ng-invalid-key Example: ng-invalid-required
-The classes are removed if the value they represent is false.
-
-
-*/
-
-/*input[type="text"],input[type="email"]  {
-
-
-
-  display: block;
-  color:black;
-height: 3em;
-width: 100%;
-}*/
 
 label{
 
@@ -132,6 +141,7 @@ li.btn {
 }
  .btn{
       box-shadow: 1px 2px 5px #000000;   
+      width: 92%
   }
 #tituloBarra{
 
@@ -163,8 +173,8 @@ li.btn {
 body {
   margin: 0 auto;
   color:#f0f0f0;
-  background:#3f51b5;
-  font-family:'Open Sans',sans-serif;
+  background: red;
+  font-family:'Consolas',Consolas,monospace;
 }
 
 caption {
@@ -236,32 +246,22 @@ left:0px;
 }
 
 #FormIngreso {
-
-  background:#f0f0f0;
   margin:0;
-}
-/*
-input[type="text"],input[type="file"]{
+  }
+
+input[type="text"],input[type="file"],input[type="password"],input[type="number"],input[type="date"],select{
   width:92%;
   background:#fff;
   margin-bottom:2%;
+    margin-top:2%;
   border:1px solid #ccc;
   padding:2%;
   font-family:'Open Sans',sans-serif;
   font-size:140%;
   font-weight: 800;
   color:#555;
-}*/
-select{
-  width:100%;
-  background:#fff;
-  margin-bottom:2%;
-  border:1px solid #ccc;
-  padding:2%;
-  font-family:'Open Sans',sans-serif;
-  font-size:95%;
-  color:#555;
 }
+
 
 .MiBotonUTN {
   display:block;

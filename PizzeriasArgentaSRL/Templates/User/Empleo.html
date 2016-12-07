@@ -1,14 +1,19 @@
-{{Titulo}}
-<form id="FormIngreso" name="FormIngreso" enctype="multipart/form-data">
-    <select ng-model="objeSeleccionadoUser" ng-options="pizza as pizza.nombre_usuario for pizza in itemsSelectUser track by pizza.id_usuario">
-    <option value="">* Elige Usuario *</option>
-</select>
+<div class="page-header">
+    <center>
+        <h1 class="animated infinite bounce">{{Titulo}}</h1>
+    </center>
+</div>
+<div class="CajaInicio animated bounceInRight">
+    <form id="FormIngreso" name="FormIngreso" enctype="multipart/form-data">
+        <select ng-model="objeSeleccionadoUser" ng-options="pizza as pizza.nombre_usuario for pizza in itemsSelectUser track by pizza.id_usuario">
+            <option value="">* Elige Usuario *</option>
+        </select>
+        <select ng-model="objeSeleccionadoLocal" ng-options="pizza as pizza.nombre_local for pizza in itemsSelectLocal track by pizza.id_local">
+            <option value="">* Elige Un Local *</option>
+        </select>
+        <a class="btn btn-block" name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-save"></span>Guardar</a>
+        <a class="btn btn-block" ui-sref="Abm.UserGrilla"><span class="glyphicon glyphicon-save"></span>Volver</a>
+    </form>
+</div>
 
-    <select ng-model="objeSeleccionadoLocal" ng-options="pizza as pizza.nombre_local for pizza in itemsSelectLocal track by pizza.id_local">
-    <option value="">* Elige Un Local *</option>
-</select>
-</form>
-<a class="btn btn-info " name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-save"></span>Guardar</a>
-<a class="btn btn-info " ui-sref="Abm.UserGrilla"><span class="glyphicon glyphicon-save"></span>Volver</a>
-<br>
-{{Result}}
+<br> {{Result}}

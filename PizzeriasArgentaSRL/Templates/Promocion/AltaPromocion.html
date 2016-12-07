@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="page-header">
 		<center>
-			<h1>{{Accion}}</h1>
+			<h1 class="animated infinite bounce">{{Accion}}</h1>
 		</center>
 	</div>
 	<div class="CajaInicio animated bounceInRight">
@@ -15,7 +15,7 @@
 			<input type="number" min="0" name="nombre" ng-model="Pizza.precio_promo" placeholder="Ingrese Precio" required/>
 			<span id="lblNombre" style="display:none;color:#FF0000;width:1%;float:right;font-size:80">*</span>
 			<input type="hidden" name="idOculto" id="id" value="" /><br>
-			<a class="btn btn-info " name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
+			<a class="btn btn-block " name="guardar" ng-disabled="FormIngreso.$invalid" ng-click="Guardar()"><span class="glyphicon glyphicon-save">&nbsp;</span>Guardar</a>
 
 			<input type="hidden" value="" id="idParaModificar" name="agregar" />
 			<input type="hidden" value="" id="hdnAgregar" name="agregar" />
