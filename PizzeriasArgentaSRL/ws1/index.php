@@ -17,7 +17,7 @@ function Url(){
     }
 }
 
-$app = new \Slim\App( ['settings' => ['displayErrorDetails' => true]]);
+$app = new \Slim\App(['settings' => ['displayErrorDetails' => true]]);
 
 
 

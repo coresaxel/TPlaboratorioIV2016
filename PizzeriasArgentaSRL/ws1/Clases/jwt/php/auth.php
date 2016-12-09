@@ -7,7 +7,7 @@ $DatosPorPost = file_get_contents("php://input");
 $usuario = json_decode($DatosPorPost);
 $objUser = User::Login($usuario);
 
-if(Count($objUser) != 0)
+if(!is_null($objUser) && !empty($objUser))
 {
 	$ClaveDeEncriptacion="estaeslaclave";
 	$token["usuario"]=$objUser;
@@ -17,7 +17,7 @@ if(Count($objUser) != 0)
 }
 else
 {
-	$jwt = usuario;
+	$jwt = false;
 }
 $ArrayConToken["TokenNamePizzeria"]=$jwt;
 echo json_encode($ArrayConToken);

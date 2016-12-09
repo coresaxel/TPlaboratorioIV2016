@@ -5,7 +5,7 @@ var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'sat
 
 miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
-    //var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/ws1/';
+    //var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/PizzeriasArgentaSRL/ws1/';
     var Url = 'http://labivaxel.esy.es/ws1/';
 
     $authProvider.loginUrl = Url + 'Clases/jwt/php/auth.php';
