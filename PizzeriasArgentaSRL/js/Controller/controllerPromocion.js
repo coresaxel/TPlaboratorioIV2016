@@ -75,7 +75,10 @@ miApp.controller("controllerPromociones", function ($scope, $state, $http, fsUse
 
     $scope.local = fsUser.TraerTodos('Local')
         .then(function (respuesta) {
-            $scope.itemsSelectLocal = {};
+            $scope.itemsSelectLocal = {
+                enableHorizontalScrollbar: 2,
+                enableVerticalScrollbar: 0,
+            };
             auxiliar = [{}]
             respuesta.forEach(function (item) {
                 auxiliar.push({ value: item.descripcion_pizza, label: item.descripcion_pizza });

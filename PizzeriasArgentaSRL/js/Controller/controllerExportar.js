@@ -7,10 +7,21 @@ miApp.controller("controllerExportar", function ($scope, $state, $stateParams, F
     } else {
         var Url = fRutas.RutasWeb;
     }
+    
+    $scope.Exp = true;
+    $scope.local = fsUser.TraerTodos('Local')
+        .then(function (respuesta) {
+            $scope.itemsSelectLocal = {};
+            $scope.itemsSelectLocal = respuesta;
+        }, function (error) {
+            console.info(error);
+        });
 
     $scope.titulo = "Exportar Ventas";
     // Objeto de configuracion de la grilla.
     $scope.gridOptions = {
+        enableHorizontalScrollbar: 2,
+        enableVerticalScrollbar: 0,
         // Configuracion para exportar datos.
         exporterCsvFilename: 'Ventas De la Pizzeria.csv',
         exporterCsvColumnSeparator: ';',
@@ -35,7 +46,6 @@ miApp.controller("controllerExportar", function ($scope, $state, $stateParams, F
         }
     };
     $scope.gridOptions.enableGridMenu = true;
-    $scope.gridOptions.enableFiltering = true;
     $scope.gridOptions.selectAll = true;
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     // Configuracion de la paginacion
@@ -50,13 +60,29 @@ miApp.controller("controllerExportar", function ($scope, $state, $stateParams, F
         });
     function columnDefs() {
         return [
-            { field: 'nombre_usuario', name: 'Nombre Usuario', enableFiltering: false },
-            { field: 'descripcion_pizza', name: 'Pizza', enableFiltering: false },
-            { field: 'nombre_local', name: 'Local', enableFiltering: true },
-            { field: 'cantidad_pizza', name: 'Cantidad', enableFiltering: false },
-            { field: 'fecha_entrega', name: 'Fecha', enableFiltering: false },
-            { field: 'estado_pedido', cellTemplate: '<div ng-if="row.entity.estado_pedido == 0">Pendiente</div/><div ng-if="row.entity.estado_pedido == 1">Finalizado</div/>', name: 'Estado', enableFiltering: false },
+            { field: 'nombre_usuario', name: 'Nombre Usuario' },
+            { field: 'descripcion_pizza', name: 'Pizza' },
+            { field: 'nombre_local', name: 'Local' },
+            { field: 'cantidad_pizza', name: 'Cantidad' },
+            { field: 'fecha_entrega', name: 'Fecha' },
+            { field: 'estado_pedido', cellTemplate: '<div ng-if="row.entity.estado_pedido == 0">Pendiente</div/><div ng-if="row.entity.estado_pedido == 1">Finalizado</div/>', name: 'Estado' },
         ];
     }
+    $scope.Guardar = function () {
+        if ($scope.FormIngreso.objLocal != null) {
+            fsUser.TraerTodos('Pedido')
+                .then(function (respuesta) {
+                    var auxiliar = [];
+                    respuesta.forEach(function (item) {
+                        if (item.nombre_local == $scope.FormIngreso.objLocal.nombre_local) {
+                            auxiliar.push(item);
+                        }
+                    })
+                    $scope.gridOptions.data = auxiliar;
+                }, function (error) {
+                    console.info(error);
+                });
+        }
+    };
 
 });

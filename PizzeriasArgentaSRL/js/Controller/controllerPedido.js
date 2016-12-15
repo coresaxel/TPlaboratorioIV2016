@@ -39,11 +39,15 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
         });
 
     $scope.Guardar = function () {
-        if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null && $scope.objeSeleccionadoUser == null)
+        if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null && $scope.objeSeleccionadoUser == null) {
+            alert("Debe completar todas las opciones");
             return;
+        }
 
-        if ($scope.Pedido.fecha_entrega < new Date().addDays(2) && $scope.Pedido.fecha_entrega > new Date().addDays(5))
+        if ($scope.Pedido.fecha_entrega < new Date().addDays(2) && $scope.Pedido.fecha_entrega > new Date().addDays(5)) {
+            alert("La fecha de pedido debe ser mayor a dos dias y menor que cinco ");
             return;
+        }
 
         $scope.Pedido.id_local = $scope.objeSeleccionadoLocal.id_local;
         $scope.Pedido.id_pizza = $scope.objeSeleccionadoPizza.id_pizza;
@@ -65,7 +69,10 @@ miApp.controller("controllerPedidos", function ($scope, $state, $http, fsUser, $
     $scope.Rol = fsUser.ObtenerRol();
 
     $scope.titulo = "Pedido";
-    $scope.gridOptions = {};
+    $scope.gridOptions = {
+        enableHorizontalScrollbar: 2,
+        enableVerticalScrollbar: 0,
+    };
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
     if ($scope.Rol != 'ENCARGADO') {

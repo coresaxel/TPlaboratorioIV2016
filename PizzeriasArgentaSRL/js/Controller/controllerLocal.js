@@ -84,7 +84,10 @@ miApp.controller("controllerLocales", function ($scope, $state, $http, fsUser) {
     $scope.Rol = fsUser.ObtenerRol();
 
     $scope.titulo = "Locales";
-    $scope.gridOptions = {};
+    $scope.gridOptions = {
+        enableHorizontalScrollbar: 2,
+        enableVerticalScrollbar: 0,
+    };
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     $scope.gridOptions.paginationPageSize = 25;
     if ($scope.Rol != 'ENCARGADO') {
