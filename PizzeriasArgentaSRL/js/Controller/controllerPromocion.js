@@ -34,11 +34,11 @@ miApp.controller("controllerPromocion", function ($scope, $state, $stateParams, 
 
 
     $scope.Guardar = function () {
-        if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null)
+        if ($scope.FormIngreso.objeSeleccionadoPizza == null && $scope.FormIngreso.objeSeleccionadoLocal == null)
             return;
 
-        $scope.Pizza.id_local = $scope.objeSeleccionadoLocal.id_local;
-        $scope.Pizza.id_pizza = $scope.objeSeleccionadoPizza.id_pizza;
+        $scope.Pizza.id_local = $scope.FormIngreso.objeSeleccionadoLocal.id_local;
+        $scope.Pizza.id_pizza = $scope.FormIngreso.objeSeleccionadoPizza.id_pizza;
         fsUser.InsertarObj('Promocion', $scope.Pizza)
             .then(function (respuesta) {
                 $state.go("Abm.PromocionGrilla");
