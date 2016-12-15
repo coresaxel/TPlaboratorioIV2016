@@ -38,6 +38,11 @@
 							<li ng-if="Rol != 'ADMINISTRADOR'"><a ui-sref="Abm.PedidoGrilla">Mis Pedidos</a></li>
 						</ul>
 					</li>
+					<li ng-if="Rol == 'ADMINISTRADOR'"><a>Exportación</a>
+						<ul>
+							<li ng-if="Rol == 'ADMINISTRADOR'"><a ui-sref="Abm.Exportar">Ventas Por Local</a></li>
+						</ul>
+					</li>
 					<li><a ui-sref="Abm.Acerca">Acerca de</a>
 					</li>
 					<li><a ng-click="Logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

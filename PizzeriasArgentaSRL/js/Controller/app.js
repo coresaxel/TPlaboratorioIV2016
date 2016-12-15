@@ -5,8 +5,8 @@ var miApp = angular.module("AngularABM", ["ui.router", "angularFileUpload", 'sat
 
 miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
 
-    //var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/PizzeriasArgentaSRL/ws1/';
-    var Url = 'http://labivaxel.esy.es/ws1/';
+    var Url = 'http://localhost:8080/Laboratorio-IV-2016/TPlaboratorioIV2016/PizzeriasArgentaSRL/ws1/';
+    //var Url = 'http://labivaxel.esy.es/ws1/';
 
     $authProvider.loginUrl = Url + 'Clases/jwt/php/auth.php';
     $authProvider.tokenName = 'TokenNamePizzeria';
@@ -350,7 +350,28 @@ miApp.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                     cache: false
                 }
             }
-        }).state(
+        })
+        .state(
+        "Abm.Exportar", {
+            cache: false,
+            url: "/Exportar",
+            views:
+            {
+                "contenido":
+                {
+                    templateUrl: "./Templates/User/UserBarra.html",
+                    controller: "controllerLogin",
+                    cache: false
+                },
+                "contenidoBody":
+                {
+                    templateUrl: "./Templates/Grilla/Grilla.html",
+                    controller: "controllerExportar",
+                    cache: false
+                }
+            }
+        })
+        .state(
         "Abm.Acerca", {
             cache: false,
             url: "/About",

@@ -1,5 +1,5 @@
 <H1 class="animated infinite bounce" >{{titulo}}</h1>
-<div ui-grid="gridOptions" class="myGrid" ui-grid-pagination ></div>
+<div ui-grid="gridOptions" class="myGrid" ui-grid-pagination ui-grid-exporter ></div>
 <ng-map ng-if="Incio" zoom="3" center="current-location">
   <directions draggable="false" travel-mode="DRIVING" origin="{{Incio}}" destination="{{Final}}">
   </directions>

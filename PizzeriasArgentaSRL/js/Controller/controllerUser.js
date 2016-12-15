@@ -1,6 +1,6 @@
 miApp.controller("controllerLogin", function($scope, $state, $auth, fsUser, $location, fRutas) {
 
-    if ($auth.isAuthenticated()) {
+    if ($auth.isAuthenticated() && ($auth.getPayload()).usuario != undefined) {
         $scope.UserName = ($auth.getPayload()).usuario[0].nombre_usuario;
         $scope.Rol = fsUser.ObtenerRol();
     }
