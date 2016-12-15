@@ -39,7 +39,7 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
         });
 
     $scope.Guardar = function () {
-        if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null && $scope.objeSeleccionadoUser == null) {
+        if ($scope.objeSeleccionadoPizza == null && $scope.objeSeleccionadoLocal == null) {
             alert("Debe completar todas las opciones");
             return;
         }
@@ -54,7 +54,13 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
 
         $scope.Pedido.id_local = $scope.objeSeleccionadoLocal.id_local;
         $scope.Pedido.id_pizza = $scope.objeSeleccionadoPizza.id_pizza;
-        $scope.Pedido.id_user = $scope.objeSeleccionadoUser.id_usuario;
+        if ($scope.Rol == 'CLIENTE') {
+            $scope.Pedido.id_user = fsUser.ObtenerRol();
+        }
+        else {
+            $scope.Pedido.id_user = $scope.objeSeleccionadoUser.id_usuario;
+        }
+
         fsUser.InsertarObj('Pedido', $scope.Pedido)
             .then(function (respuesta) {
                 $state.go("Abm.PedidoGrilla");
