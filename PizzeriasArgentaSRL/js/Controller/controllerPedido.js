@@ -43,8 +43,11 @@ miApp.controller("controllerPedido", function ($scope, $state, $stateParams, Fil
             alert("Debe completar todas las opciones");
             return;
         }
-
-        if ($scope.Pedido.fecha_entrega < new Date().addDays(2) && $scope.Pedido.fecha_entrega > new Date().addDays(5)) {
+        var someDateDesde = new Date();
+        someDateDesde.setDate(someDate.getDate() + 2);
+        var someDateHasta = new Date();
+        someDateHasta.setDate(someDate.getDate() + 5);
+        if ($scope.Pedido.fecha_entrega > someDateDesde && $scope.Pedido.fecha_entrega < someDateHasta) {
             alert("La fecha de pedido debe ser mayor a dos dias y menor que cinco ");
             return;
         }
